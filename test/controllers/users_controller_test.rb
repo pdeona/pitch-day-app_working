@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'capybara/rails'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
@@ -14,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get create" do
+  test "should post create" do
     post users_url, params: { user: { trello_id: "test", slack_id: "test" } }
     assert_response :success
   end
