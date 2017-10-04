@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
 
   def create
-    user = User.find_by(trello_id: session_trello_id)
+    user = User.find_by(session_params)
     if user
       log_in user
       redirect_to user_path(user), :notice => "Logged in successfully."
     else
-      flash.now[:danger] = "Invalid email/password combination."
+      flash.now[:danger] = "Invalid Trello login."
       render 'new'
     end
   end
