@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+
   test "should get show" do
-    get user_url(users(:one))
+    @u = users(:one)
+    post '/login', params: { trello_id: @u.trello_id }
+    get user_url(@u)
     assert_response :success
   end
 
@@ -12,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-    post users_url
+    post users_url, params: { user: { trello_id: "test", slack_id: "test" } }
     assert_response :success
   end
 

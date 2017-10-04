@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def create
-    user = User.find_by(session_params)
+    user = User.find_by(trello_id: params[:trello_id])
     if user
       log_in user
       redirect_to user_path(user), :notice => "Logged in successfully."
@@ -17,10 +17,6 @@ class SessionsController < ApplicationController
   end
 
   private
-
-  def session_params
-    params.require(:session).permit(:trello_id)
-  end
 
   def log_in user
     session[:user_id] = user.id

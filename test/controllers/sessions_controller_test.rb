@@ -6,9 +6,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "it creates a session when provided an existing user" do
-    @u.trello_id = "test"
-    post '/login', params: { session: {trello_id: "test"} }
-    assert_response :success
+    post '/login', params: {trello_id: @u.trello_id}
+    assert_equal @u.id, session[:user_id]
   end
 
 end
