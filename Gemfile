@@ -58,3 +58,9 @@ gem "ruby-trello", "~> 2.0"
 
 # Added at 2017-10-05 11:52:12 -0400 by pdeona:
 gem "octokit", "~> 4.7"
+
+# Added at 2017-10-05 14:13:51 -0400 by pdeona:
+gem "omniauth-trello", "~> 0.0.4"
+
+# Added at 2017-10-05 15:16:11 -0400 by pdeona:
+gem "omniauth-github", "~> 1.0"

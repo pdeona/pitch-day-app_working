@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+
   end
 
   def destroy
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:trello_id, :slack_id)
+    params.require(:user).permit(:trello_id, :github_id, :email, :slack_id)
   end
 
 end

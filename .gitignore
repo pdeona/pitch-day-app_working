@@ -38,3 +38,6 @@ Thumbs.db
 # API initializers #
 ####################
 /config/initializers/trello.rb
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key

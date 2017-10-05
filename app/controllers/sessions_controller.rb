@@ -1,14 +1,21 @@
 class SessionsController < ApplicationController
 
   def create
-    user = User.find_by(trello_id: params[:trello_id])
-    if user
-      log_in user
-      redirect_to user_path(user), :notice => "Logged in successfully."
-    else
-      flash.now[:danger] = "Invalid Trello login."
-      render 'new'
+    # omniauth middleware stores oauth data in the request.env instead of params
+    auth = request.env["omniauth.auth"]
+
+    # even though this is a login action, an OAuth login can be a login *or* a registration
+    #
+    # if the user exists, log her in
+    # if the user doesn't exist, create her, then log her in
+    case params['provider']
+    when 'github'
+      user = User.find_by(github_id: auth['uid']) || User.create_from_github(auth)
+    when 'trello'
+      user = User.find_by(trello_id: auth['email']) || User.create_from_trello(auth)
     end
+    session[:user_id] = user.id
+    redirect_to root_url, notice: "Signed in!"
   end
 
   def destroy
@@ -28,3 +35,5 @@ class SessionsController < ApplicationController
   end
 
 end
+
+
