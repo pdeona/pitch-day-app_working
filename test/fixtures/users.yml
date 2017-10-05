@@ -7,3 +7,16 @@ one:
 two:
   trello_id: dwayneisthisone
   slack_id: MyString
+
+# <% 100.times do |n| %>
+# user_<%= n %>:
+#   trello_id: "#{n}_user"
+#   slack_id: "slack"
+# <% end %>
+
+<% 100.times do |n| %>
+user_<%= n %>:
+  trello_id: user_<%= n %>
+  slack_id: user@exa
+<% end %>
+

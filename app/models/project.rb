@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
-  belongs_to :user
-  has_many :collaborators
+  has_and_belongs_to_many :collaborators, class_name: 'User'
+  has_one :board
 
   validates :due_by, presence: true
 end

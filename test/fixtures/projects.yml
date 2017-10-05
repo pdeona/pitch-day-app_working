@@ -7,9 +7,13 @@
 one:
   name: MyString
   due_by: MyDate
+  user_id: users(:one)
+  # collaborators: Array(users(:one), users(:two))
 # column: value
 #
 two:
   name: MyString
   due_by: MyDate
+  user_id: users(:two)
+  # collaborators: Array(users(:one), users(:two))
 # column: value

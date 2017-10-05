@@ -10,13 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004145601) do
+ActiveRecord::Schema.define(version: 20171005011423) do
+
+  create_table "boards", force: :cascade do |t|
+    t.string "name"
+    t.string "trello_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.date "due_by"
+    t.integer "user_id"
+    t.string "github_repo"
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "projects_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.index ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id"
   end
 
   create_table "users", force: :cascade do |t|
