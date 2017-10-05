@@ -55,3 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added at 2017-10-03 20:43:48 -0400 by pdeona:
 gem "ruby-trello", "~> 2.0"
+
+# Added at 2017-10-05 11:52:12 -0400 by pdeona:
+gem "octokit", "~> 4.7"
