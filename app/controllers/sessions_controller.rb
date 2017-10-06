@@ -3,18 +3,9 @@ class SessionsController < ApplicationController
   def create
     # omniauth middleware stores oauth data in the request.env instead of params
     auth = request.env["omniauth.auth"]
-
     # even though this is a login action, an OAuth login can be a login *or* a registration
-    #
-    # if the user exists, log her in
-    # if the user doesn't exist, create her, then log her in
-    case params['provider']
-    when 'github'
-      user = User.find_by(github_id: auth['uid']) || User.create_from_github(auth)
-    when 'trello'
-      user = User.find_by(trello_id: auth['email']) || User.create_from_trello(auth)
-    end
-    session[:user_id] = user.id
+    user = User.trello_oauth_token_set(auth)
+    session[:user_id] = user.id unless session[:user_id] == user.id
     redirect_to root_url, notice: "Signed in!"
   end
 

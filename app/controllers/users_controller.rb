@@ -3,11 +3,12 @@ class UsersController < ApplicationController
   before_action :current_user, only: [:show, :destroy]
 
   def show
-    if @current_user
-      @user = User.find(@current_user.id)
-    else
-      redirect_to login_path
-    end
+
+    # unless @current_user
+    #   redirect_to login_path
+    # else
+    #   @user = @current_user
+    # end
   end
 
   def new
