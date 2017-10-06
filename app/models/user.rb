@@ -8,16 +8,15 @@ class User < ApplicationRecord
   end
 
 
-  def self.create_from_github auth
+  def self.create_from_github info
     User.create!(
-      github_id: auth['uid'],
-      email: auth['info']['email']
+      github_id: info['nickname'],
+      email: info['email']
     )
   end
 
-  def self.create_from_trello auth
-    User.create_with(trello_id: auth['email']).find_or_create_by(
-      email: auth['email']
-    )
+  def connect_to_trello auth
+    try(self.trello_id = auth.info.nickname)
   end
 end
+

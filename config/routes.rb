@@ -7,8 +7,16 @@ Rails.application.routes.draw do
 
   post 'login', to: 'sessions#create'
 
-  resources :users, except: :index
+  resource :users do
+    resources :projects
+  end
 
-  get '/auth/:provider/callback' => 'sessions#create'
+  get 'auth/github/callback' => 'sessions#create'
+
+  get 'auth/trello/callback' => 'sessions#trello_callback'
+
+  get 'auth/github', as: 'github_login'
+
+  get 'auth/trello', as: 'trello_login'
 
 end
