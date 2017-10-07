@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  before_action :current_user
+
   def create
     # omniauth middleware stores oauth data in the request.env instead of params
     auth = request.env['omniauth.auth']
@@ -21,12 +23,14 @@ class SessionsController < ApplicationController
 
   def trello_callback
     auth = request.env['omniauth.auth']
-    @user = User.find(session[:user_id]) unless session[:user_id].nil?
-    @user.connect_to_trello(auth)
-    @user.trello_oauth = params['oauth_token']
-    @user.trello_oauth_verifier = params['oauth_verifier']
-    return render root_path unless @user.save
-    redirect_to users_path, notice: 'Trello connected!'
+    @current_user.connect_to_trello(auth)
+    oauth_token = auth.extra.access_token
+    @current_user.trello_member_token = params['oauth_token']
+    @current_user.trello_member_secret = params['oauth_verifier']
+    @current_user.trello_oauth = oauth_token.token
+    @current_user.trello_oauth_verifier = oauth_token.secret
+    return render root_path unless @current_user.save
+    redirect_to user_path, notice: 'Trello connected!'
   end
 
   private

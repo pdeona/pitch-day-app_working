@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :current_user, only: [:show, :destroy]
 
   def show
-    @user = User.find_by(id: current_user.id)
   end
 
   def new
