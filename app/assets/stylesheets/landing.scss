@@ -2,10 +2,25 @@
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.yAxis {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+  color: black;
+  background-color: white;
+}
+
+text.lang_count {
+  color: white;
+  background: white;
+}
 .landing_image img{
   max-width: 600px;
   max-height: 800px;
   margin-top: 7%;
+<<<<<<< HEAD
 }
 
 .boxed {
@@ -19,22 +34,39 @@
 
 style{
   color:white;
+=======
+>>>>>>> a776a35ffc3c712f1e1257fff787810df2888a9c
 }
 
-.landing_image{
+
+.landing_image {
   text-align: center;
 }
+
 .left {
   float: left;
   width: 200px;
   height: 600px;
   background: red
 }
+
 .right {
   float: right;
-  background: yellow;
+  background: white;
+  color: black;
   height: 600px;
   width: 200px;
   margin-right: 1%;
 
+}
+
+svg {
+  background-color: transparent;
+}
+
+.legend {
+  width: 90px;
+  height: 90px;
+  background: white;
+  color: black;
 }

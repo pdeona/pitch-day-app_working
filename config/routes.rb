@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
   get 'auth/trello', as: 'trello_login'
 
+  get 'get_graph' => 'landing#graph', as: 'graph'
+
 end
