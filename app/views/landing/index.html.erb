@@ -27,6 +27,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to 'Sign Up', '#', :'data-toggle'=> "modal", :'data-target'=>"#myModal" %></li>
             <li><%= link_to 'Login', '#', :'data-toggle'=> "modal", :'data-target'=>"#myModal123" %></li>
+
+            <%= link_to 'repo graph', graph_path, remote: true %>
 <!--  -->
             <!-- <li class="dropdown"></li> -->
             <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
@@ -50,7 +52,7 @@
 
     <div class="main-content col-md-6">
       <div class="landing_image">
-        <img src="/images/stevejobs.jpg" alt="">
+        <!-- <img src="/images/stevejobs.jpg" alt=""> -->
       </div>
     </div>
 

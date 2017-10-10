@@ -36,7 +36,19 @@ text.lang_count {
 
 .right {
   float: right;
-  background: yellow;
+  background: white;
+  color: black;
   height: 600px;
   width: 200px;
+}
+
+svg {
+  background-color: transparent;
+}
+
+.legend {
+  width: 90px;
+  height: 90px;
+  background: white;
+  color: black;
 }
