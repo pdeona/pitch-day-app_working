@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009221141) do
+ActiveRecord::Schema.define(version: 20171010194851) do
 
   create_table "boards", force: :cascade do |t|
     t.string "name"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20171009221141) do
     t.string "name"
     t.date "due_by"
     t.integer "user_id"
-    t.string "github_repo"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
