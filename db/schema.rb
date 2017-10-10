@@ -20,23 +20,6 @@ ActiveRecord::Schema.define(version: 20171009221141) do
     t.integer "project_id"
   end
 
-  create_table "controllers", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_controllers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_controllers_on_reset_password_token", unique: true
-  end
-
   create_table "projects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,8 +53,6 @@ ActiveRecord::Schema.define(version: 20171009221141) do
     t.datetime "updated_at", null: false
     t.string "github_id"
     t.string "email"
-    t.string "providers"
-    t.string "uid"
     t.string "github_oauth"
     t.string "trello_oauth"
     t.string "trello_oauth_verifier"

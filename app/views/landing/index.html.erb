@@ -1,8 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
+  <title>Pitch Day Planner</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
 
-<%= notice %>
+<body>
+  <header>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pitch Day Planner</a>
+        </div>
 
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to 'Sign Up', '#', :'data-toggle'=> "modal", :'data-target'=>"#myModal" %></li>
+            <li><%= link_to 'Login', '#', :'data-toggle'=> "modal", :'data-target'=>"#myModal123" %></li>
+<!--  -->
+            <!-- <li class="dropdown"></li> -->
+            <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
+            <!-- <ul class="dropdown-menu" role="menu"></ul> -->
+            <!-- <li><a href="#">Action</a></li> -->
+            <!-- <li><a href="#">Another action</a></li> -->
+            <!-- <li><a href="#">Something else here</a></li> -->
+            <!-- <li class="divider"></li> -->
+            <!-- <li><a href="#">Separated link</a></li> -->
+            <!-- <li class="divider"></li> -->
+            <!-- <li><a href="#">One more separated link</a></li> -->
+          </ul>
+        </div>
+      </nav>
 
-<%= link_to "Connect Trello account", trello_login_path %>
+    </header>
+    <aside id="first-sidebar" class="col-md-3">
+      <div class="left">
+      </div>
+    </aside>
 
+    <div class="main-content col-md-6">
+      <div class="landing_image">
+        <img src="/images/stevejobs.jpg" alt="">
+      </div>
+    </div>
 
-<%= link_to 'Show repo graph', graph_path, remote: true %>
+    <aside id="first-sidebar" class="col-md-3">
+      <div class="right">
+      </div>
+    </aside>
+
+  </body>
+  </html>
+
+  <%= notice %>
+
+  <%= render partial: 'users/newmodal' %>
+  <%= render partial: 'sessions/login' %>
+

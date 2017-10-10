@@ -1,7 +1,7 @@
+
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 
 .yAxis {
   display: flex;
@@ -15,4 +15,28 @@
 text.lang_count {
   color: white;
   background: white;
+}
+.landing_image img{
+  max-width: 600px;
+  max-height: 800px;
+  margin-top: 7%;
+}
+
+
+.landing_image {
+  text-align: center;
+}
+
+.left {
+  float: left;
+  width: 200px;
+  height: 600px;
+  background: red
+}
+
+.right {
+  float: right;
+  background: yellow;
+  height: 600px;
+  width: 200px;
 }
