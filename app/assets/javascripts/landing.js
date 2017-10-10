@@ -2,26 +2,26 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on('turbolinks:load', () => {
+// $(document).on('turbolinks:load', () => {
 
-  let authenticationSuccess = function() {
-    console.log('Successful authentication');
-  },
-  authenticationFailure = function() {
-    console.log('Failed authentication');
-  };
+//   let authenticationSuccess = function() {
+//     console.log('Successful authentication');
+//   },
+//   authenticationFailure = function() {
+//     console.log('Failed authentication');
+//   };
 
-  $('#trello-btn').on('click', (evt) => {
-    evt.preventDefault();
-    window.Trello.authorize({
-      type: 'modal',
-      name: 'Getting Started Application',
-      scope: {
-        read: 'true',
-        write: 'true' },
-      expiration: 'never',
-      success: authenticationSuccess,
-      error: authenticationFailure
-    });
-  });
-});
+//   $('#trello-btn').on('click', (evt) => {
+//     evt.preventDefault();
+//     window.Trello.authorize({
+//       type: 'modal',
+//       name: 'Getting Started Application',
+//       scope: {
+//         read: 'true',
+//         write: 'true' },
+//       expiration: 'never',
+//       success: authenticationSuccess,
+//       error: authenticationFailure
+//     });
+//   });
+// });

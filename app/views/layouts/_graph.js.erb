@@ -1,108 +1,54 @@
-  var data = <%= (@langs).html_safe %>;
+var data = <%= (@langs).html_safe %>,
+  repo_name = '<%= (@repo_name).html_safe %>';
 
-    var width = 360;
-    var height = 360;
-    var outerRadius = 180;
-    var innerRadius = 110;
-    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+var labels = [], proportions = [], total = 0;
 
-    // add the canvas to the DOM
+var dataset = function() {
+  let datas = [];
+  for (var i in data) {
+    datas.push([data[i]['language'], data[i]['count']])
+  }
+  return datas;
+}
 
-    var svg = d3.select('.landing_image').
-      append("svg").
-      attr("width", width).
-      attr("height", height).
-      append('g').
-      attr('class', 'lang_graph').
-      attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+for (var i in data) {
+  labels.push(data[i]['language']);
+  proportions.push(data[i]['count']);
+  total += data[i]['count'];
+}
 
-    var arc = d3.arc().
-      innerRadius(innerRadius).
-      outerRadius(outerRadius);
 
-    var pie = d3.pie().
-      value(function(d) {
-        return d.count;
-      }).sort(null);
 
-    var path = svg.selectAll('path').
-      data(pie(data)).
-      enter().
-      append('path').
-      attr('d', arc).
-      attr('fill', function(d, i) {
-        return color(Math.random(1, 20));
-      });
-
-    var label = [];
-
-    for (var i in data) {
-      label.push(data[i]['language']);
-    }
-
-    // var legendRectSize = 18,
-    //   legendSpacing = 4;
-
-    // d3.select('g').enter().append('g').attr('class', 'legend');
-    for (var i in label) {
-      d3.select('.right').
-      // enter().
-      append('p').
-      text(`${ +i + 1 }.` + label[i] + ': ' + data[i]['count'] + ' bytes');
+var ctx = document.getElementById("repoChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+          label: repo_name,
+          data: proportions,
+          backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)'
+              ],
+              borderWidth: 1,
+              hoverBackgroundColor: [
+                  'rgba(255,99,132, .8)',
+                  'rgba(54, 162, 235, .8)',
+                  'rgba(255, 206, 86, .8)',
+                  'rgba(75, 192, 192, .8)',
+                  'rgba(153, 102, 255, .8)'
+              ]
+        }]
       }
-      // data(color.domain()).
-      // enter().
-      // append('g').
-      // attr('class', 'legend').
-      // attr('transform', function(err, data) {
-      //   for (var i in data) {
-      //     var height = legendRectSize + legendSpacing;
-      //     var offset = height * color.domain().length;
-      //     var horz = -2 * legendRectSize;
-      //     var vert = i * height - offset;
-      //     return 'translate(' + horz + ',' + vert + ')';
-      //   }
-      // });
-
-
-
-
-
-
-
-    // var x = d3.scaleLinear().domain([0, dataset.length]).range([0, width]);
-    // var y = d3.scaleLinear().domain([0, d3.max(data, function(datum) { return datum.count; })]).
-    //   rangeRound([0, height]);
-
-    // languageBars.selectAll("rect").
-    //   data(data).
-    //   enter().
-    //   append("svg:rect").
-    //   attr("x", function(datum, index) { return x(index); }).
-    //   attr("y", function(datum) { return height - y(datum.count); }).
-    //   attr("height", function(datum) { return y(datum.count); }).
-    //   attr("width", barWidth);
-
-    // languageBars.selectAll("text").
-    //   data(data).
-    //   enter().
-    //   append("svg:text").
-    //   attr("x", function(datum, index) { return x(index) + barWidth; }).
-    //   attr("y", function(datum) { return height - y(datum.count); }).
-    //   attr("dx", -barWidth/2).
-    //   attr("dy", "1.2em").
-    //   attr("text-anchor", "middle").
-    //   attr("class", "lang_count").
-    //   text(function(datum) { return datum.count;});
-
-    // languageBars.selectAll("text.yAxis").
-    //   data(data).
-    //   enter().append("svg:text").
-    //   attr("x", function(datum, index) { return x(index) + barWidth; }).
-    //   attr("y", height).
-    //   attr("dx", -barWidth/2).
-    //   attr("text-anchor", "middle").
-    //   text(function(datum) { return datum.language;}).
-    //   attr("transform", "translate(0, 18)").
-    //   attr('style', '{color: black}').
-    //   attr("class", "yAxis");
+    });

@@ -1,4 +1,4 @@
-<%= form_with(model: [project, user], local: true) do |form| %>
+<%= form_with(model: [user, project], local: true) do |form| %>
   <% if project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
@@ -14,6 +14,8 @@
   <%= form.date_field :due_by %>
 
   <%= form.text_field :name, placeholder: 'Name your project' %>
+
+  <%= form.check_box :repo_id?, alt: 'If you have an existing repo, make sure your project name matches the repo name.' %>
 
   <div class="actions">
     <%= form.submit 'Create this project' %>

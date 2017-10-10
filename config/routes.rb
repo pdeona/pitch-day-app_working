@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :projects
   end
 
+  post 'user/projects' => 'projects#create', as: 'projects'
+
   get 'auth/github/callback' => 'sessions#create'
 
   get 'auth/trello/callback' => 'sessions#trello_callback'

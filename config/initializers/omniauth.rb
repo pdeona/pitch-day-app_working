@@ -3,6 +3,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   app_name: "pitch-day-planner", scope: 'read,write,account', expiration: 'never'
 
   provider :github, Rails.application.secrets['github_id'],
-    Rails.application.secrets['github_secret'], scope: "user:email:repo"
+    Rails.application.secrets['github_secret'], scope: "repo"
 
 end
