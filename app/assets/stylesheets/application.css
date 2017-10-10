@@ -14,3 +14,11 @@
  *= require_self
  */
 
+ .right {
+   float: right;
+   background: red;
+   height: 1100px;
+   width: 200px;
+   margin-top: 1%;
+
+ }
