@@ -6,8 +6,19 @@
   max-width: 600px;
   max-height: 800px;
   margin-top: 7%;
+}
 
+.boxed {
+  border: 5px solid white ;
+  border-radius: 20px;
+  margin-right:5%;
+  margin-left:5%;
+  margin-top:5%;
+  margin-bottom:5%;
+}
 
+style{
+  color:white;
 }
 
 .landing_image{
@@ -24,4 +35,6 @@
   background: yellow;
   height: 600px;
   width: 200px;
+  margin-right: 1%;
+
 }
