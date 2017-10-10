@@ -1,0 +1,50 @@
+  let data = <%= (@langs).html_safe %>;
+
+    let barWidth = 40;
+    let width = (barWidth + 30) * data.length;
+    let height = 300;
+
+    let x = d3.scaleLinear().domain([0, data.length]).range([0, width]);
+    let y = d3.scaleLinear().domain([0, d3.max(data, function(datum) { return datum.count; })]).
+      rangeRound([0, height]);
+
+
+    // add the canvas to the DOM
+    let div = d3.select('body').append('div').attr('id', 'lang_freq').attr
+    let languageBars = d3.select("#lang_freq").
+      append("svg:svg").
+      attr("width", width).
+      attr("height", height*2);
+
+    languageBars.selectAll("rect").
+      data(data).
+      enter().
+      append("svg:rect").
+      attr("x", function(datum, index) { return x(index); }).
+      attr("y", function(datum) { return height - y(datum.count); }).
+      attr("height", function(datum) { return y(datum.count); }).
+      attr("width", barWidth);
+
+    languageBars.selectAll("text").
+      data(data).
+      enter().
+      append("svg:text").
+      attr("x", function(datum, index) { return x(index) + barWidth; }).
+      attr("y", function(datum) { return height - y(datum.count); }).
+      attr("dx", -barWidth/2).
+      attr("dy", "1.2em").
+      attr("text-anchor", "middle").
+      attr("class", "lang_count").
+      text(function(datum) { return datum.count;});
+
+    languageBars.selectAll("text.yAxis").
+      data(data).
+      enter().append("svg:text").
+      attr("x", function(datum, index) { return x(index) + barWidth; }).
+      attr("y", height).
+      attr("dx", -barWidth/2).
+      attr("text-anchor", "middle").
+      text(function(datum) { return datum.language;}).
+      attr("transform", "translate(0, 18)").
+      attr('style', '{color: black}').
+      attr("class", "yAxis");

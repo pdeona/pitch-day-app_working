@@ -1,3 +1,18 @@
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.yAxis {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+  color: black;
+  background-color: white;
+}
+
+text.lang_count {
+  color: white;
+  background: white;
+}
