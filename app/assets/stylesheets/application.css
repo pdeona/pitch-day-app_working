@@ -40,6 +40,7 @@ input, select, button, textarea {
  /* App-Wide Styles */
 
  body {
+  font-family: Lato;
   padding: 0;
   margin: 0;
   background: #55ba9d;
@@ -50,24 +51,52 @@ input, select, button, textarea {
   color: white;
  }
 
- #wynlogo {
-  margin: 1em;
-  padding: 1em;
-  border-radius: 50%;
- }
 
  nav#mainNav {
   width: 100vw;
   padding: 0;
   border: 0;
   margin: 0;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: column wrap;
  }
 
+ #mainNav {
+  background-color: #73c2e6;
+  height: 14vh;
+ }
+
+ #mainNav > #wynlogo {
+  margin: 1em;
+  padding: 1em;
+  border-radius: 50%;
+ }
+
+ #mainNav > p {
+  text-align: left;
+  width: 100%;
+ }
+
+ #namePlate {
+  padding-top: 2em;
+  font-weight: 400;
+  font-size: 2em;
+  margin-bottom: 0;
+  padding-bottom: 0;
+ }
+
+ #subtitle {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1em;
+  height: 1.8em;
+ }
 
  .right {
   float: right;
   background: #303f4e;
-  height: auto;
+  height: 86vh;
   width: 15vw;
   border: 0;
   margin: 0;
@@ -81,9 +110,32 @@ input, select, button, textarea {
   width: 85vw;
  }
 
+ .container-title {
+
+  text-align: center;
+  justify-content: center;
+ }
+
+
+ #chartBox {
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  justify-content: center;
+  width: 82vw;
+  height: 82vh;
+  background-color: #303f4e;
+  border-radius: 18px;
+  margin-top: 1.4em;
+  margin-left: 1.4em;
+ }
+
 #repoChart {
-  max-height: 100%;
-  max-width: 100%;
+  display: none;
+  background-color: rgba(238, 238, 238, .7);
+  border-radius: 18px;
+  padding: 1.3em;
+  height: 100%;
 }
 
 .btn-primary {
