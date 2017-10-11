@@ -3,93 +3,37 @@
   <head>
     <title>PitchDayPlanner</title>
     <%= csrf_meta_tags %>
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
     <title>Pitch Day Planner</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" type="text/javascript" charset="utf-8" async></script>
-
     <script src="https://api.trello.com/1/client.js?key=<%=Rails.application.secrets['trello_key'] %>"></script>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Dwayne1</title>
-
+    <!-- Normalize CSS -->
+    <link src="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css">
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
     <!-- Custom styles for this template -->
-    <link href="freelancer.min.css" rel="stylesheet">
-
-
-    <script src="https://api.trello.com/1/client.js?key=<%=
-                  Rails.application.secrets['trello_key'] %>"></script>
+    <script src="https://api.trello.com/1/client.js?key=
+    <%= Rails.application.secrets['trello_key'] %>"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-
     <%= stylesheet_link_tag    'application', media: 'all',
       'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application',
       'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body id="page-top">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <!-- <div class="container"> -->
-        <!-- <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Wyncoach</a> -->
-        <%= image_tag 'wynlogo.gif', size:"124x124" %>
-  <aside id="first-sidebar" class="col-md-3">
-    <div class="right">
-    </div>
-  </aside>
-        <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> -->
-          <!-- Menu -->
-          <!-- <i class="fa fa-bars"></i> -->
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <!-- <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a> -->
-            </li>
-            <li class="nav-item">
-              <!-- <a class="nav-link js-scroll-trigger" href="#about">About</a> -->
-            </li>
-            <li class="nav-item">
-              <!-- <a class="nav-link js-scroll-trigger" href="#contact">Contact</a> -->
-            </li>
-          </ul>
-        </div>
-      </div>
+  <body>
+    <nav id="mainNav">
+        <%= image_tag 'wynlogo.gif', size:"124x124", id: 'wynlogo' %>
     </nav>
 
-    <!-- Header -->
-    <header class="masthead">
-      <div class="container">
-        <img class="img-fluid" src="img/profile.png" alt="">
-        <div class="intro-text">
-          <span class="name">Start Bootstrap</span>
-          <hr class="star-light">
-          <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
-        </div>
-      </div>
-    </header>
-    <h1>application tester</h1>
-
-
     <%= yield %>
-
 
   </body>
 </html>
