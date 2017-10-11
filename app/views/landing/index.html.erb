@@ -5,16 +5,11 @@
   </div>
 </div>
 <aside class="right">
+  <%= link_to 'Log in or Create an Account', '/auth/github',
+      class: 'btn btn-primary' %>
   <%= link_to 'repo graph', graph_path, remote: true,
-  class: 'btn btn-primary' %>
+      class: 'btn btn-primary' %>
   <%= link_to 'repo graph', graph_path, remote: true,
-  class: 'btn btn-primary' %>
-  <%= link_to 'repo graph', graph_path, remote: true,
-  class: 'btn btn-primary' %>
-  <%= link_to 'repo graph', graph_path, remote: true,
-  class: 'btn btn-primary' %>
-  <%= link_to 'repo graph', graph_path, remote: true,
-  class: 'btn btn-primary' %>
-  <%= link_to 'repo graph', graph_path, remote: true,
-  class: 'btn btn-primary' %>
+      class: 'btn btn-primary' %>
+  <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
 </aside>
