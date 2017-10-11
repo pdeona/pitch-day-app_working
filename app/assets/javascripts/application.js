@@ -14,25 +14,8 @@
 //= require turbolinks
 //= require_tree .
 
-      processResponse = function(response, type) {
-        var parser, script;
-        if (typeof response === 'string' && typeof type === 'string') {
-          if (type.match(/\bjson\b/)) {
-            try {
-              response = JSON.parse(response);
-            } catch (error) {}
-          } else if (type.match(/\b(?:java|ecma)script\b/)) {
-            script = document.createElement('script');
-            script.text = response;
-            console.dir(script);
-            document.head.appendChild(script).parentNode.removeChild(script);
-          } else if (type.match(/\b(xml|html|svg)\b/)) {
-            parser = new DOMParser();
-            type = type.replace(/;.+/, '');
-            try {
-              response = parser.parseFromString(response, type);
-            } catch (error) {}
-          }
-        }
-        return response;
-      };
+$(document).on('turbolinks:load', () => {
+  $('.btn-primary').on('click', (evt) => {
+    $(evt.target).addClass('active');
+  });
+});
