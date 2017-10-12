@@ -49,71 +49,72 @@ class Board < ApplicationRecord
   end
 
   def create_cards trello_board
+    # Prepare some cards to guide users on next steps
     todo_list_id = trello_board.lists.collect { |list| list.id if list.name == 'To Do' }.join
     pm_label_id = trello_board.labels.collect { |label| label.id if label.name == 'Project Management' }.join
     model_label_id = trello_board.labels.collect { |label| label.id if label.name == 'Model' }.join
     template_card_data = [
           {
-            name: 'Set Up Project Template for Technical Meeting',
-            list_id: todo_list_id,
-            desc: %q(The Project Template can be found in your Google Drive.
-                    It contains important information regarding the requirements
-                    for Pitch Day and some guidelines for when you should plan on
-                    being finished. Be sure to have it done before your technical
-                    meeting so you can review your plans.),
-            card_labels: pm_label_id
-          },
-          {
             name: "Create ERD to represent your Application's Data Flow",
             list_id: todo_list_id,
-            desc: %q(An Entity Relationship Diagram is crucial to
-                    planning out your workflow. It will inform important decisions about
-                    the flow of data through your application and help you plan what data
-                    you want to store, how to store it, and how it will relate to other data
-                    your application collects.),
+            desc: %q(An Entity Relationship Diagram is crucial to \
+                planning out your workflow. It will inform important decisions about \
+                the flow of data through your application and help you plan what data \
+                you want to store, how to store it, and how it will relate to other data \
+                your application collects.),
             card_labels: model_label_id
+          },
+          {
+            name: 'Set Up Project Template for Technical Meeting',
+            list_id: todo_list_id,
+            desc: %q(The Project Template can be found in your Google Drive. \
+                It contains important information regarding the requirements \
+                for Pitch Day and some guidelines for when you should plan on \
+                being finished. Be sure to have it done before your technical \
+                meeting so you can review your plans.),
+            card_labels: pm_label_id
           },
           {
             name: 'Add your Group Members to this Trello Board and your Github Repo',
             list_id: todo_list_id,
-            desc: %q(You can't go it alone! Be sure to add your group members to this Trello Board
-                    and add them as collaborators to your Github Repo. To add Trello users to a Board, click
-                    the 'Show Menu...' button in the top right corner, and type your group members'
-                    Trello usernames into the Invite box!
-                    On Github, you can add collaborators to a repository by clicking on Settings from your repo's main page.
-                    The Collaborators button can be found on the left. It may ask you to input your password. Once you reach
-                    the Collaborators screen you can add each group member with their Github username, and they will receive
-                    an email with a link allowing them to join!
-                    If only working with a team could always be this easy!),
+            desc: %q(You can't go it alone! Be sure to add your group members to this Trello Board \
+                and add them as collaborators to your Github Repo. To add Trello users to a Board, click \
+                the 'Show Menu...' button in the top right corner, and type your group members' \
+                Trello usernames into the Invite box!
+                On Github, you can add collaborators to a repository by clicking on Settings from your repo's main page. \
+                The Collaborators button can be found on the left. It may ask you to input your password. Once you reach \
+                the Collaborators screen you can add each group member with their Github username, and they will receive \
+                an email with a link allowing them to join!
+                If only working with a team could always be this easy!),
             card_labels: pm_label_id
           },
           {
-            name: 'Divide and Conquer',
+            name: 'Divide and Conquer!',
             list_id: todo_list_id,
-            desc: %q(You and your team have the ultimate advantage: each other.
-                    Make use of it! Don't waste time working on redundant tasks,
-                    support members who are blocked, and most importantly,
-                    COMMUNICATE!
-                    Use the Trello Board to identify member's strengths, let them
-                    know they're doing a good job, ask what's going on when they're stuck
-                    on one card for a long time. A cohesive team is working on many different
-                    tasks, as one unit. ),
+            desc: %q(You and your team have the ultimate advantage: each other. \
+                Make use of it! Don't waste time working on redundant tasks, \
+                support members who are blocked, and most importantly, \
+                COMMUNICATE!
+                Use the Trello Board to identify member's strengths, let them \
+                know they're doing a good job, ask what's going on when they're stuck \
+                on one card for a long time. A cohesive team is working on many different \
+                tasks, as one unit. ),
             card_labels: pm_label_id
           },
           {
             name: 'Create the rest of your Trello cards',
             list_id: todo_list_id,
-            desc: %q(Trello is an amazing tool. The biggest problem most projects have with using it,
-                    is not using it! Start building out this list with all your goals for your project,
-                    and keep your User Story and your ERD in mind when you do. Keep in mind these handy
-                    color-coded labels we've created, allowing you to categorize your tasks. If these aren't enough,
-                    make more!
-                    Make sure everyone on the team is active on Trello. The Board will keep everyone
-                    on the same page and save time communicating and coordinating group efforts. Make sure pay attention
-                    when you see a team member move their card to the Blocked List - something's up!
-                    Make sure your team stays on the same page by meeting regularly, either in person or via
-                    Slack. Reference the Trello Board in meetings and review the activity since the previous meeting.
-                    Before you know it, you'll be conducting your Retro and getting ready to present!),
+            desc: %q(Trello is an amazing tool. The biggest problem most projects have with using it, \
+                is not using it! Start building out this list with all your goals for your project, \
+                and keep your User Story and your ERD in mind when you do. Keep in mind these handy \
+                color-coded labels we've created, allowing you to categorize your tasks. If these aren't enough, \
+                make more!
+                Make sure everyone on the team is active on Trello. The Board will keep everyone \
+                on the same page and save time communicating and coordinating group efforts. Make sure pay attention \
+                when you see a team member move their card to the Blocked List - something's up!
+                Make sure your team stays on the same page by meeting regularly, either in person or via \
+                Slack. Reference the Trello Board in meetings and review the activity since the previous meeting.
+                Before you know it, you'll be conducting your Retro and getting ready to present!),
             card_labels: pm_label_id
           }
         ]

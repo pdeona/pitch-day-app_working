@@ -1,9 +1,9 @@
 class Repo < ApplicationRecord
   belongs_to :project
 
-  def create_new_repo name, user
+  def create_new_repo user
     @client = Octokit::Client.new(access_token: user.github_oauth)
-    @client.fork('pdeona/pitch_day_project_template')
+    @client.fork('eddroid/git2-c18')
     fetch_existing_repo_github_id user
   end
 
@@ -14,7 +14,7 @@ class Repo < ApplicationRecord
         self.github_id = repo[:id]
       end
     end
-    save!
+    save! unless self.github_id.nil?
   end
 
 end
