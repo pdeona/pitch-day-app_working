@@ -3,7 +3,7 @@ class Repo < ApplicationRecord
 
   def create_new_repo name, user
     @client = Octokit::Client.new(access_token: user.github_oauth)
-    p @client.fork('eddroid/git2-c18')
+    @client.fork('pdeona/pitch_day_project_template')
     fetch_existing_repo_github_id user
   end
 

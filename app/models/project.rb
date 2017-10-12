@@ -18,4 +18,11 @@ class Project < ApplicationRecord
     end
   end
 
+  def create_project_board user
+    if self.save! && self.board.nil?
+      self.board = Board.new.add_to_trello user, self
+    else
+      Board.find(self.board.id)
+    end
+  end
 end
