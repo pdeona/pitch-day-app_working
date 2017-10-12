@@ -5,7 +5,7 @@ class Project < ApplicationRecord
 
   validates :due_by, presence: true
 
-  def create_user_project user, project_params
+  def create_project_repo user, project_params
     self.name = project_params[:name]
     self.due_by = project_params[:due_by]
     self.user_id = user.id

@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = @current_user.projects.find(params[:id])
+    @project.link_to_trello
   end
 
   # GET /projects/new
