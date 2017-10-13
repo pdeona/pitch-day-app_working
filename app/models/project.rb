@@ -17,7 +17,7 @@ class Project < ApplicationRecord
     self.due_by = project_params[:due_by]
     self.user_id = user.id
     if (project_params[:repo_id] == '1')
-      repo = Repo.new(name: name, project: self)
+      repo = Repo.new(name: params[:repo_name], project: self)
       repo.fetch_existing_repo_github_id(user)
     else
       repo = Repo.new(name: name, project: self)

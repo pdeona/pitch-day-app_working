@@ -1,3 +1,8 @@
-$('#chartBox').append(() => {
-  return '<%= j render 'form', user: @user, project: @project %>'
+
+$('#pdp-modal').on('.show.bs.modal', () => {
+  $('.modal-body').append(() => {
+    return "<%= j render 'form', user: @user, project: @project %>"
+  });
 });
+
+$('#pdp-modal').modal();

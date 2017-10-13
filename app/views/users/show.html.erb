@@ -3,7 +3,7 @@
     <%= user_card @current_user %>
   </div>
   <%= link_to 'Create a new Project', new_user_project_path, remote: true,
-      class: 'btn btn-primary' %>
+      class: 'btn btn-primary', id: 'new-project-user-btn' %>
   <%= link_to 'project show', user_project_path(Project.last), remote: true,
       class: 'btn btn-primary' %>
   <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>

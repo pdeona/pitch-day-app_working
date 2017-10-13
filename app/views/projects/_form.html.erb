@@ -13,20 +13,25 @@
 
 <div id='new-project-form'>
 
-  <div id='new-project-name'>
+  <div id='new-project-name' class='col-md-4'>
     <%= form.label :name %>
     <%= form.text_field :name, placeholder: 'Name your project',
         class: 'form-control' %>
   </div>
 
-  <div id='new-project-dueby'>
+  <div id='new-project-dueby' class='col-md-4'>
     <%= form.label :due_by %>
-    <%= f.text_field :due_by, data:{ provide:'datepicker' } %>
+    <%= form.date_field :due_by, class: 'form-control' %>
   </div>
 
-  <div id='new-project-repo-field'>
-    <%= form.label 'Create a new repo? (If you have an existing repo, make sure your project name matches the repo name.)' %>
-    <%= form.check_box :repo_id?, class: 'form-control' %>
+  <div id='new-project-repo-field' class='col-md-4'>
+    <%= form.label :repo_id? %>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <%= form.check_box :repo_id?, class: 'form-check-box' %>
+      </span>
+      <%= form.text_field :repo_name, class: 'form-control' %>
+    </div>
   </div>
 
   <div class="actions">
