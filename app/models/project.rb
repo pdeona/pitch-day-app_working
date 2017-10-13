@@ -5,6 +5,13 @@ class Project < ApplicationRecord
 
   validates :due_by, presence: true
 
+  def new_project_steps user, project_params
+    create_project_repo user, project_params
+    create_project_board
+  end
+
+  private
+
   def create_project_repo user, project_params
     self.name = project_params[:name]
     self.due_by = project_params[:due_by]
@@ -14,14 +21,13 @@ class Project < ApplicationRecord
       repo.fetch_existing_repo_github_id(user)
     else
       repo = Repo.new(name: name, project: self)
-      repo.create_new_repo(name, user)
+      repo.create_new_repo(user)
     end
   end
 
   def create_project_board
     if self.save! && self.board.nil?
-      self.board = Board.new.add_to_trello User.find(self.user_id), self
-      self.save
+      Board.new.add_to_trello User.find(self.user_id), self
     else
       Board.find(self.board.id)
     end

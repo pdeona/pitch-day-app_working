@@ -64,3 +64,6 @@ gem "omniauth-trello", "~> 0.0.4"
 
 # Added at 2017-10-05 15:16:11 -0400 by pdeona:
 gem "omniauth-github", "~> 1.0"
+
+# Added at 2017-10-12 17:07:55 -0400 by pdeona:
+gem "resque", "~> 1.27"

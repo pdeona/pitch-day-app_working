@@ -1,10 +1,17 @@
+<aside class="left">
+  <div id='user-card'>
+    <%= user_card @current_user %>
+  </div>
+  <%= link_to 'Create a new Project', new_user_project_path, remote: true,
+      class: 'btn btn-primary' %>
+  <%= link_to 'project show', user_project_path(Project.last), remote: true,
+      class: 'btn btn-primary' %>
+  <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
+</aside>
 
-
-<%= link_to 'Create a new project', new_user_project_path(@current_user, @project) %>
-
-<%= link_to 'Log Out', logout_path %>
-<ul>
-<% @current_user.attributes.each do |attr| %>
-  <li><%= attr %></li>
-<% end %>
-</ul>
+<div class="container">
+  <div id="chartBox">
+    <p class="container-title"></p>
+    <canvas id="repoChart"></canvas>
+  </div>
+</div>

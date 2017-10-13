@@ -15,12 +15,14 @@ Rails.application.routes.draw do
 
   get 'auth/github/callback' => 'sessions#create'
 
-  get 'auth/trello/callback' => 'sessions#trello_callback'
+  get 'auth/trello/callback' => 'users#trello_callback'
 
   get 'auth/github', as: 'github_login'
 
   get 'auth/trello', as: 'trello_login'
 
   get 'get_graph' => 'landing#graph', as: 'graph'
+
+  get '/user/step2' => 'users#step_two', as: 'users_step_two'
 
 end

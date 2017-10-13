@@ -1,24 +1,29 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :current_user
+  before_action :require_login
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.where(user_id: @current_user.id)
-    @project = @current_user.projects.new({ user_id: @current_user.id })
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = @current_user.projects.find(params[:id])
-    @project.link_to_trello
+    @project = Project.find(params[:id])
+    respond_to do |f|
+      f.js { render partial: 'dashboard_show', project: @project }
+    end
   end
 
   # GET /projects/new
   def new
     @user = User.find_by(id: @current_user.id)
     @project = @user.projects.new
+    respond_to do |f|
+      f.js { render partial: 'dashboard_new', project: @project }
+    end
   end
 
   # GET /projects/1/edit
@@ -28,15 +33,16 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    project_params = params[:project]
     @project = Project.new
-    @project.create_user_project @current_user, project_params
+    @project.new_project_steps @current_user, project_params
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_projects_path, notice: 'Project was successfully created.' }
+        @current_user.projects << @project
+        @current_user.save
+        format.js { render partial: 'dashboard_show', project: @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
-        format.html { render :new }
+        format.js { render partial: 'dashboard_new' }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
@@ -63,6 +69,16 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def add_collaborator
+    collaborator = User.find_by params[:collaborator_id]
+    collaborator.projects << Project.find(params[:id])
+    if collaborator.save
+      respond_to do |f|
+        f.js { render partial: 'dashboard_show', notice: 'Collaborator added!' }
+      end
     end
   end
 

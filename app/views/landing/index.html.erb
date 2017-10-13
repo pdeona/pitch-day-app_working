@@ -12,7 +12,7 @@
       class: 'btn btn-primary' %>
   <%= link_to 'repo graph', graph_path, remote: true,
       class: 'btn btn-primary' %>
-  <%= link_to 'repo graph', graph_path, remote: true,
+  <%= link_to 'project show', user_project_path(Project.last), remote: true,
       class: 'btn btn-primary' %>
   <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
 </aside>

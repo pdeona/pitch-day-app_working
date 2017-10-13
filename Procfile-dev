@@ -1,0 +1,4 @@
+web: rails s -p3000
+queue: /usr/local/bin/redis-server
+resque-web: resque-web -F
+worker: rake resque:work VERBOSE=1 QUEUE=*

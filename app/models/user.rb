@@ -6,7 +6,8 @@ class User < ApplicationRecord
   def self.create_from_github info
     User.create!(
       github_id: info['nickname'],
-      email: info['email']
+      email: info['email'],
+      image: '/doge.jpg'
     )
   end
 

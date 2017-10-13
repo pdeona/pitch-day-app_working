@@ -1,9 +1,7 @@
 class LandingController < ApplicationController
-
-  before_action :current_user
-
+  before_action :current_user, only: :graph
   def index
-    # redirect_to login_path if current_user.nil?
+
   end
 
   def graph

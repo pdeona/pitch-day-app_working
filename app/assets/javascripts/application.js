@@ -15,7 +15,14 @@
 //= require_tree .
 
 $(document).on('turbolinks:load', () => {
-  $('.btn-primary').on('click', (evt) => {
-    $(evt.target).addClass('active');
+
+  $(document).on('turbolinks:fetch', () => {
+    $('.container').addClass('animate bounce');
   });
+
+  $(document).on('turbolinks:change', () => {
+    $('.container').addClass('animate bounce');
+  });
+
+  $('')
 });

@@ -1,5 +1,5 @@
-var data = <%= (@langs).html_safe %>,
-  repo_name = '<%= (@repo_name).html_safe %>';
+var data = <%= j (@langs).html_safe %>,
+  repo_name = <%= j (@repo_name).html_safe %>;
 
 var labels = [], proportions = [], total = 0;
 
