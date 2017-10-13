@@ -1,3 +1,4 @@
+
 <aside class="left">
   <div id='user-card'>
     <%= user_card @current_user %>
@@ -11,7 +12,9 @@
 
 <div class="container">
   <div id="chartBox">
-    <p class="container-title"></p>
+    <p class="container-title">
+      <%= notice %>
+    </p>
     <canvas id="repoChart"></canvas>
   </div>
 </div>

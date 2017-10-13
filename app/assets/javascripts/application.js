@@ -13,18 +13,3 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-
-$(document).on('turbolinks:load', () => {
-
-  $(document).on('turbolinks:fetch', () => {
-    $('.container').addClass('animate bounce');
-  });
-
-  $(document).on('turbolinks:change', () => {
-    $('.container').addClass('animate bounce');
-  });
-
-  $('')
-});
-
-

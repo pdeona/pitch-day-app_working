@@ -130,7 +130,7 @@ input, select, button, textarea {
 
 
  #chartBox {
-  display: flex;
+  display: grid;
   flex-flow: column nowrap;
   align-content: center;
   justify-content: center;
@@ -203,5 +203,23 @@ input, select, button, textarea {
 }
 
 #user-card-name {
+  margin-top: 1em;
+}
 
+#pdp-modal {
+  color: black;
+}
+
+.modal-body {
+  min-height: 8em;
+}
+
+.notice {
+  color: green;
+  size: 1.8em;
+}
+
+#chartBox > h1 {
+  align-self: flex-start;
+  justify-content: flex-start;
 }

@@ -28,15 +28,10 @@
     <%= form.label :repo_id? %>
     <div class="input-group">
       <span class="input-group-addon">
-        <%= form.check_box :repo_id?, class: 'form-check-box' %>
+        <%= form.check_box :repo_id?, class: 'form-check' %>
       </span>
       <%= form.text_field :repo_name, class: 'form-control' %>
     </div>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Create this project',
-          class: 'btn btn-primary', id: 'new-project-submit' %>
   </div>
 <% end %>
 </div>

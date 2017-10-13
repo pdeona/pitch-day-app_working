@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
       if @project.save
         @current_user.projects << @project
         @current_user.save
-        format.js { render partial: 'dashboard_show', project: @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to user_path, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.js { render partial: 'dashboard_new' }
@@ -90,6 +90,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :due_by, :repo_id?, :repo_name)
+      params.require(:project).permit(:name, :due_by, :repo_id, :repo_name)
     end
 end

@@ -1,8 +1,23 @@
 
-$('#pdp-modal').on('.show.bs.modal', () => {
-  $('.modal-body').append(() => {
-    return "<%= j render 'form', user: @user, project: @project %>"
-  });
+$('.modal-title').text('New Project Form');
+
+$('.modal-body').empty().
+  append(() => {
+  return '<%= (j render 'form', user: @user, project: @project).html_safe %>'
 });
+
+$('.modal-footer').empty().
+  append(() => {
+    return (
+      '<div class="actions">\
+      <%= submit_tag "Create this project",\
+            class: "btn btn-primary", id: "new-project-submit", remote: true %>\
+      </div>'
+    )
+});
+
+$('.modal-footer .btn-primary').click(function() {
+    $('.modal-body form').submit();
+  });
 
 $('#pdp-modal').modal();

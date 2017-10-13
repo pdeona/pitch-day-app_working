@@ -2,29 +2,28 @@ var project = <%= (@project).to_json.html_safe %>
 
 var project_repo = <%= (@project.repo).to_json.html_safe %>
 
-var project_board = <%= ((@project.board).to_json.html_safe) || "Setting up your Trello board..." %>
+var project_board = <%= (@project.board).nil? ? "Setting up your Trello board..." : @project.board.to_json.html_safe %>
 
 var collaborators = <%= (@project.collaborators.count).to_json.html_safe %>
 
 $("#chartBox")
+.empty()
 .append(
-    $("<div>")
-    .append(
-        $("<div>")
-        .append(
-            $("<h1>" + project.name + "</h1>")
-        )
-        .append(
-            $("<div> Project due by:" + project.due_by + "</div>")
-        )
-        .append(
-            $("<div>" + project_repo.url + "</div>")
-        )
-        .append(
-            $("<div>" + project_board.url + "</div>")
-        )
-        .append(
-            $("<div>" + collaborators + "collaborators on this project. </div>")
-        )
-    )
+    $("<h1>" + project.name + "</h1>")
 )
+.append(
+    $("<div> Project due by:" + '<%= @project.due_by.month %>' + "/" + '<%= @project.due_by.day %>' + "/" + '<%= @project.due_by.year %>' + "</div>")
+)
+.append(
+    $("<%= j label_tag :repo_name, 'Link an Existing Repo?' %>")
+)
+.append(
+    $("<%= j text_field_tag :repo_name %>")
+)
+.append(
+    $("<div>" + project_board.url + "</div>")
+)
+.append(
+    $("<div>" + collaborators + "collaborators on this project. </div>")
+)
+

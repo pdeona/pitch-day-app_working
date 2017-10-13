@@ -25,3 +25,12 @@
 //     });
 //   });
 // });
+
+$(document).on('page:change', () => {
+  $('.container')[0].addClass('animate slideInRight');
+});
+
+
+$(document).on('page:fetch', () => {
+  $('.container')[0].addClass('animate slideOutLeft');
+});
