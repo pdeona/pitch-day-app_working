@@ -186,6 +186,7 @@ input, select, button, textarea {
 
 #new-project-name > label {
   display: block;
+  color: black;
 }
 
 #user-card-image > img {

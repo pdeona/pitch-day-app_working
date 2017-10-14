@@ -3,6 +3,19 @@ class Board < ApplicationRecord
 
   validates :trello_id, presence: true
 
+  def add_collaborators user, collaborators
+    @client = Trello::Client.new(
+      consumer_key: Rails.application.secrets['trello_key'],
+      consumer_secret: Rails.application.secrets['trello_secret'],
+      oauth_token: user.trello_oauth,
+      oauth_secret: user.trello_member_secret)
+    board = @client.find(:board, self.trello_id)
+    collaborators.each do |collaborator|
+      trello_member = @client.find(:member, collaborator.trello_id)
+      board.add_member(trello_member)
+    end
+  end
+
   def add_to_trello user, project
     create_trello_board(user, project)
   end

@@ -10,6 +10,16 @@ class Project < ApplicationRecord
     create_project_board
   end
 
+  def add_collaborators client, users
+    users.each do |user|
+      self.collaborators << user
+    end
+    if self.save!
+      self.repo.add_collaborators client, users
+      self.board.add_collaborators client, users
+    end
+  end
+
   private
 
   def create_project_repo user, project_params

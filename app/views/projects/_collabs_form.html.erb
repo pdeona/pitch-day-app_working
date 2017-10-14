@@ -1,0 +1,10 @@
+<%= form_for add_collabs_path(@project), remote: true do |form| %>
+
+  <%= form.label :collaborators %>
+
+  <p>Add collaborators by their Trello nickname.</p>
+
+  <%= form.text_field :collaborators %>
+
+
+<% end %>

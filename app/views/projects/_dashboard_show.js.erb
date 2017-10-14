@@ -2,7 +2,7 @@ var project = <%= (@project).to_json.html_safe %>
 
 var project_repo = <%= (@project.repo).to_json.html_safe %>
 
-var project_board = <%= (@project.board).nil? ? "Setting up your Trello board..." : @project.board.to_json.html_safe %>
+var project_board = <%= (@project.board).nil? ? j('Setting up your Trello board...') : @project.board.to_json.html_safe %>
 
 var collaborators = <%= (@project.collaborators.count).to_json.html_safe %>
 
@@ -25,5 +25,7 @@ $("#chartBox")
 )
 .append(
     $("<div>" + collaborators + "collaborators on this project. </div>")
+).append(
+    $("<div><%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true %></div>")
 )
 

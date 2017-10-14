@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  self.per_form_csrf_tokens = true
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :new_collaborators, :add_collaborators]
   before_action :current_user
   before_action :require_login
   # GET /projects
@@ -72,13 +73,21 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def add_collaborator
-    collaborator = User.find_by params[:collaborator_id]
-    collaborator.projects << Project.find(params[:id])
-    if collaborator.save
-      respond_to do |f|
-        f.js { render partial: 'dashboard_show', notice: 'Collaborator added!' }
-      end
+  def new_collaborators
+    @project = Project.find params[:id]
+    render partial: 'modal_collabs', project: @project
+  end
+
+  def add_collaborators
+    @users = params[:data].split(',').map(&:strip)
+    users = []
+    @users.each do |user|
+      users << User.find_by(trello_id: user)
+    end
+    @project.add_collaborators users
+    respond_to do |f|
+      # f.html { redirect_to user_path(@current_user), notice: 'Collaborators added!' }
+      f.js { render partial: 'dashboard_show', project: @project, notice: 'Collaborators added!'}
     end
   end
 

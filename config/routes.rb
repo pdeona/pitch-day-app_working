@@ -25,4 +25,8 @@ Rails.application.routes.draw do
 
   get '/user/step2' => 'users#step_two', as: 'users_step_two'
 
+  get '/add_collabs/:id' => 'projects#new_collaborators', as: 'add_collabs'
+
+  post '/add_collabs/:id' => 'projects#add_collaborators'
+
 end

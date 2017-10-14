@@ -1,0 +1,41 @@
+$('.modal-title').text('New Project Form');
+
+$('.modal-body').empty().
+  append(() => {
+  return '<%= j render "collabs_form" %>'
+});
+
+$('.modal-footer').empty().
+  append(() => {
+    return (
+      '<div class="actions">\
+      <%= submit_tag "Add Collaborator(s)",\
+            class: "btn btn-primary", id: "new-project-submit" %>\
+      </div>'
+    )
+});
+
+
+
+$('.modal-footer .btn-primary').click(() => {
+  $.ajax({
+    type: 'POST',
+    url: '/add_collabs/<%= @project.id %>.js',
+    beforeSend: ((xhr) => {
+      xhr.setRequestHeader('X-CSRF-Token',
+        $('meta[name="csrf-token"]').attr('content')
+        )}),
+    data: 'data=' + $('#_add_collabs_<%= @project.id %>_collaborators')[0].value,
+    success: (() => {
+      $('.close').click();
+    })
+  });
+});
+
+
+$('#pdp-modal').modal();
+
+
+
+
+
