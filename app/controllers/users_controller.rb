@@ -48,6 +48,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    term = params[:term]
+    respond_to do |format|
+      format.json { @users = User.search(term) }
+    end
+  end
+
 
   private
 

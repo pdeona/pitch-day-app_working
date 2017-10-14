@@ -29,4 +29,6 @@ Rails.application.routes.draw do
 
   post '/add_collabs/:id' => 'projects#add_collaborators'
 
+  get 'user/search' => 'users#search'
+
 end

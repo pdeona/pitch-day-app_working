@@ -10,4 +10,3 @@
 //       $('html').children('body').append(`${JSON.stringify(response)}`);
 //     });
 //   });
-// });

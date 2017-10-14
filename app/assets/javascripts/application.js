@@ -13,3 +13,42 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+
+var app = window.app = {};
+
+app.Users = function() {
+  this._input = $('#users-search-txt');
+  this._initAutocomplete();
+};
+
+app.Users.prototype = {
+  _initAutocomplete: function() {
+  this._input
+    .autocomplete({
+      source: '/user/search',
+      appendTo: '#users-search-results',
+      select: $.proxy(this._select, this)
+    })
+    .autocomplete('instance')._renderItem = $.proxy(this._render, this);
+  },
+
+  _select: function(e, ui) {
+    this._input.val(ui.item.title + ' - ' + ui.item.author);
+    return false;
+  },
+
+  _render: function(ul, item) {
+    var markup = [
+      '<span class="trello_id">' + item.trello_id + '</span>',
+      '<span class="github_id">' + item.github_id + '</span>'
+    ];
+    return $('<li>')
+      .append(markup.join(''))
+      .appendTo(ul);
+  }
+};
+
+
+
+

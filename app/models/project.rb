@@ -6,7 +6,7 @@ class Project < ApplicationRecord
   validates :due_by, presence: true
 
   def new_project_steps user, project_params
-    create_project_repo user, project_params
+    Project.create(project_params)
     create_project_board
   end
 
@@ -15,25 +15,12 @@ class Project < ApplicationRecord
       self.collaborators << user
     end
     if self.save!
-      self.repo.add_collaborators client, users
       self.board.add_collaborators client, users
+      self.repo.add_collaborators client, users unless self.repo.nil?
     end
   end
 
   private
-
-  def create_project_repo user, project_params
-    self.name = project_params[:name]
-    self.due_by = project_params[:due_by]
-    self.user_id = user.id
-    if (project_params[:repo_id] == '1')
-      repo = Repo.new(name: params[:repo_name], project: self)
-      repo.fetch_existing_repo_github_id(user)
-    else
-      repo = Repo.new(name: name, project: self)
-      repo.create_new_repo(user)
-    end
-  end
 
   def create_project_board
     if self.save! && self.board.nil?

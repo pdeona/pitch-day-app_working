@@ -67,3 +67,6 @@ gem "omniauth-github", "~> 1.0"
 
 # Added at 2017-10-12 17:07:55 -0400 by pdeona:
 gem "resque", "~> 1.27"
+
+# Added at 2017-10-14 15:53:35 -0400 by pdeona:
+gem "jquery-ui-rails", "~> 6.0"

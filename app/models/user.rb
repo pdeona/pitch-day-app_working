@@ -15,5 +15,9 @@ class User < ApplicationRecord
     try(self.trello_id = auth.info.nickname)
   end
 
+  def self.search term
+    where('LOWER(trello_id) LIKE :term OR LOWER(github_id) LIKE :term', term: "%#{term.downcase}%")
+  end
+
 end
 
