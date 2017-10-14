@@ -31,4 +31,6 @@ Rails.application.routes.draw do
 
   get 'user/search' => 'users#search'
 
+  post '/add_repo/:repo_name' => 'projects#add_repo', as: 'add_repo'
+
 end

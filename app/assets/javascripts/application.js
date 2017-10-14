@@ -34,21 +34,16 @@ app.Users.prototype = {
   },
 
   _select: function(e, ui) {
-    this._input.val(ui.item.title + ' - ' + ui.item.author);
+    this._input.val(ui.item.trello_id);
     return false;
   },
 
   _render: function(ul, item) {
     var markup = [
-      '<span class="trello_id">' + item.trello_id + '</span>',
-      '<span class="github_id">' + item.github_id + '</span>'
+      '<span class="trello_id">' + item.trello_id + '</span>'
     ];
-    return $('<li>')
+    return $('<li style="decoration:none">')
       .append(markup.join(''))
       .appendTo(ul);
   }
 };
-
-
-
-

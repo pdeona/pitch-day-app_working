@@ -1,16 +1,16 @@
 class Repo < ApplicationRecord
   belongs_to :project
 
-  def link_existing_repo user
+  def self.link_existing_repo user, project, repo_name
+    repo = Repo.new(name: project.name, project_id: project.id)
     @client = Octokit::Client.new(access_token: user.github_oauth)
-    @client.repos.each do |repo|
-      if repo.name == self.name
-        self.github_id = repo[:id]
-        self.url = repo[:url]
-      end
+    github_repo = @client.repo(user.github_id + '/' + repo_name)
+    if github_repo
+        repo.github_id = github_repo[:id]
+        repo.url = github_repo[:url]
     end
-    res = save! unless self.github_id.nil?
-    res ? self : 'Github link failed'
+    res = repo.save! unless repo.github_id.nil?
+    res ? repo : 'Github link failed'
   end
 
   def add_collaborators user, collaborators

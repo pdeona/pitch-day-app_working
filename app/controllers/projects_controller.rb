@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   self.per_form_csrf_tokens = true
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :new_collaborators, :add_collaborators]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :new_collaborators, :add_collaborators, :add_repo]
   before_action :current_user
   before_action :require_login
   # GET /projects
@@ -88,6 +88,15 @@ class ProjectsController < ApplicationController
     respond_to do |f|
       # f.html { redirect_to user_path(@current_user), notice: 'Collaborators added!' }
       f.js { render partial: 'dashboard_show', project: @project, notice: 'Collaborators added!'}
+    end
+  end
+
+  def add_repo
+    @project.repo = Repo.link_existing_repo @current_user, params[:repo_name]
+    if @project.save
+      render partial: 'dashboard_show', project: @project, notice: 'Repo linked!'
+    else
+      render partial: 'add_repo'
     end
   end
 

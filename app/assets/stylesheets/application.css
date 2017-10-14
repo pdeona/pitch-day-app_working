@@ -249,7 +249,6 @@ input, select, button, textarea {
   max-height: 20em;
   overflow: hidden;
   overflow-y: auto;
-  list-style: none;
 }
 
 .users-search .results .ui-menu-item {
@@ -260,4 +259,8 @@ input, select, button, textarea {
   border-left: 5px solid transparent;
   position: relative;
   height: 6.5em;
+}
+
+.results > li {
+  list-style: none;
 }

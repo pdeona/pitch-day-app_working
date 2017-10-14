@@ -15,10 +15,7 @@ $("#chartBox")
     $("<div> Project due by:" + '<%= @project.due_by.month %>' + "/" + '<%= @project.due_by.day %>' + "/" + '<%= @project.due_by.year %>' + "</div>")
 )
 .append(
-    $("<%= j label_tag :repo_name, 'Link an Existing Repo?' %>")
-)
-.append(
-    $("<%= j text_field_tag :repo_name %>")
+    $("<%= j render 'add_repo' %>")
 )
 .append(
     $("<div>" + project_board.url + "</div>")
