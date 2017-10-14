@@ -1,5 +1,7 @@
-<%= form_tag add_repo_path(:repo_name) %>
-  <%= label_tag :repo_name %>
-  <%= text_field_tag :repo_name, nil, class: 'form-control' %>
+<%= form_for add_repo_path(@project), remote: true do |form| %>
 
-  <%= submit_tag 'Link to Github', class: 'btn btn-primary' %>
+  <%= form.label :repo_name %>
+  <%= form.text_field :repo_name, class: 'form-control' %>
+
+  <%= form.submit 'Link to Github', class: 'btn btn-primary' %>
+<% end %>

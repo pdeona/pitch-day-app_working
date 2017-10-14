@@ -155,6 +155,15 @@ input, select, button, textarea {
   width: 100%;
 }
 
+a.btn-info {
+  width: 48%;
+  margin: .3em;
+}
+
+a.btn-info:even {
+  float: right;
+}
+
  .left {
   float: left;
   background: #303f4e;

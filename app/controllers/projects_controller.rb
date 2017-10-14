@@ -92,7 +92,8 @@ class ProjectsController < ApplicationController
   end
 
   def add_repo
-    @project.repo = Repo.link_existing_repo @current_user, params[:repo_name]
+    repo_name = params[add_repo_path(@project)][:repo_name]
+    @project.repo = Repo.link_existing_repo @current_user, @project, repo_name
     if @project.save
       render partial: 'dashboard_show', project: @project, notice: 'Repo linked!'
     else

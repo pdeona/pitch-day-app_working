@@ -6,7 +6,7 @@ var project_board = <%= (@project.board).nil? ? j('Setting up your Trello board.
 
 var collaborators = <%= (@project.collaborators.count).to_json.html_safe %>
 
-$("#chartBox")
+$(".form-box")
 .empty()
 .append(
     $("<h1>" + project.name + "</h1>")
@@ -14,15 +14,21 @@ $("#chartBox")
 .append(
     $("<div> Project due by:" + '<%= @project.due_by.month %>' + "/" + '<%= @project.due_by.day %>' + "/" + '<%= @project.due_by.year %>' + "</div>")
 )
-.append(
-    $("<%= j render 'add_repo' %>")
+.append((() => {
+        if (project_repo === null) {
+            return $("<%= j render 'add_repo' %>");
+        } else {
+            return $("<a href='" + project_repo.url + "' class='btn btn-info'>Go to Github Repo</a>");
+        }
+    })
 )
 .append(
-    $("<div>" + project_board.url + "</div>")
+    $("<a href='" + project_board.url + "' class='btn btn-info'>Go to Trello Board</a></div>")
 )
 .append(
-    $("<div>" + collaborators + "collaborators on this project. </div>")
-).append(
-    $("<div><%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true %></div>")
+    $("<div>" + collaborators + " collaborators on this project. </div>")
+)
+.append(
+    $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:100%;' %>")
 )
 
