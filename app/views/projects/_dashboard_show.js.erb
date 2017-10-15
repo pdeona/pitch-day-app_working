@@ -2,9 +2,12 @@ var project = <%= (@project).to_json.html_safe %>
 
 var project_repo = JSON.parse('<%= (@project.repo).to_json.html_safe %>')
 
+var due_date = new Date(project.due_by);
+
 var project_board = <%= (@project.board).nil? ? j('Setting up your Trello board...') : @project.board.to_json.html_safe %>
 
 var collaborators = <%= (@project.collaborators.count).to_json.html_safe %>
+
 
 $(".project-box")
 .empty()
@@ -12,17 +15,80 @@ $(".project-box")
   $("<h1>" + project.name + "</h1>")
   )
 .append(
-  $("<div> Project due by:" + '<%= @project.due_by.month %>' + "/" + '<%= @project.due_by.day %>' + "/" + '<%= @project.due_by.year %>' + "</div>")
+  $("<span>Project due by: " + due_date.toDateString() + "</span>")
+  )
+.append(
+  $("<div id='clock'></div>")
   );
+
+$('#clock').countdown(due_date).
+                  on('update.countdown', (evt) => {
+                    $('#clock').html(evt.strftime('%W weeks %-d days %-H h %M min %S sec'))
+                  }).
+                  on('finish.countdown',
+                    (evt) => {
+                      return $('#clock').html("Pitch Day has Arrived!")
+                    })
+                  .countdown('start');
+
 $(".repo-box")
   .empty()
-  .append(() => {
-  if (project_repo === null) {
-    return "<%= j render 'add_repo' %>";
-  } else {
-    return "<canvas id='repoChart' /><a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>";
-  };
-});
+  .append(
+    $('<canvas id="repoChart" height="400" width="580"></canvas>')
+      ).
+    append(() => {
+      if (project_repo === null) {
+        return "<%= j render 'add_repo' %>";
+      } else {
+        var repo_data = JSON.parse(<%= (@langs).to_json.html_safe %>),
+        repo_name =  project_repo.name;
+
+          var labels = [], proportions = [];
+
+          for (var i in repo_data) {
+            labels.push(repo_data[i]['language']);
+            proportions.push(repo_data[i]['count']);
+          }
+
+        var title = $('.repo-title').html(`${repo_name} Code Analysis`);
+
+        var ctx = $("#repoChart")[0].getContext('2d');
+        var data = {
+                labels: labels,
+                datasets: [{
+                  data: proportions,
+                  label: repo_name + ' code in bytes',
+                  backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                  ], borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)'
+                  ],borderWidth: 1,
+                  hoverBackgroundColor: [
+                      'rgba(255,99,132, .8)',
+                      'rgba(54, 162, 235, .8)',
+                      'rgba(255, 206, 86, .8)',
+                      'rgba(75, 192, 192, .8)',
+                      'rgba(153, 102, 255, .8)'
+                  ]
+                }]
+              }, options = {responsive: true};
+
+        var myChart = new Chart(ctx, {
+              type: 'horizontalBar',
+              data: data,
+              options: options
+          });
+      return [$('#repoChart').append(myChart), "<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>"];
+    };
+  });
 
 $(".trello-box")
   .empty()
@@ -36,32 +102,3 @@ $(".trello-box")
     $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")
     );
 
-
-if (project_repo !== null && project_repo !== undefined) {
-  var repo_data = JSON.parse(<%= (@langs).to_json.html_safe %>),
-    repo_name =  project_repo.name;
-
-  var labels = [], proportions = [];
-
-  for (var i in repo_data) {
-    labels.push(repo_data[i]['language']);
-    proportions.push(repo_data[i]['count']);
-  }
-
-  var ctx = $("#repoChart")[0].getContext('2d');
-  var data = {
-        datasets: [{
-          data: proportions
-        }],
-        labels: labels
-      }, options = {responsive: false};
-
-  var myChart = new Chart(ctx, {
-      type: 'horizontalBar',
-      data: data,
-      options: options
-  });
-
-  var title = $('.repo-title').html(`${repo_name} Code Analysis`);
-
-}
