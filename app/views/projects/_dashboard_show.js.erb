@@ -21,14 +21,14 @@ $(".repo-box")
     if (project_repo === null) {
       return $("<%= j render 'add_repo' %>");
     } else {
-      return $("<a href='" + project_repo.url + "' class='btn btn-info'>Go to Github Repo</a>");
+      return $("<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>");
     }
   });
 
 $(".trello-box")
   .empty()
   .append(
-    $("<a href='" + project_board.url + "' class='btn btn-info'>Go to Trello Board</a>")
+    $("<a href='" + project_board.url + "' class='btn btn-info'><i class='fa fa-trello'></i> Go to Trello Board</a>")
     )
   .append(
     $("<span>" + collaborators + " collaborators on this project. </span>")
