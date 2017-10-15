@@ -28,9 +28,18 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  align-content: space-between;
   width: 47.5%;
   height: 48%;
   text-align: center;
+}
+
+.project-box > span {
+  margin: 1em;
+}
+
+.project-box > .btn {
+  align-self: center;
 }
 
 .repo-box {
@@ -40,6 +49,10 @@
   align-content: center;
   width: 47.5%;
   height: 48%;
+}
+
+.repo-box > a.btn {
+  align-self: center;
 }
 
 #link-git-btn {
@@ -80,16 +93,14 @@
 
 .trello-box > div {
   height: 80%;
-  width: 46%;
+  width: 80%;
   background: rgba(238, 238, 238, 0.7);
   border-radius: 0.8em;
   overflow-x: auto;
   overflow-y: scroll;
+  align-self: center;
 }
 
-#board-info-box {
-  margin-right: 2.4em;
-}
 
 #clock {
   border-radius: 0.6em;

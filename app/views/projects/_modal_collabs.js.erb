@@ -10,14 +10,14 @@ $('.modal-footer').empty().
     return (
       '<div class="actions">\
       <%= submit_tag "Add Collaborator(s)",\
-            class: "btn btn-primary", id: "new-project-submit" %>\
+            class: "btn btn-info", id: "new-project-submit" %>\
       </div>'
     )
 });
 
 
 
-$('.modal-footer .btn-primary').click(() => {
+$('.modal-footer .btn-info').click(() => {
   $.ajax({
     type: 'POST',
     url: '/add_collabs/<%= @project.id %>.js',

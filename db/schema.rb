@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013003212) do
+ActiveRecord::Schema.define(version: 20171015094531) do
 
   create_table "boards", force: :cascade do |t|
     t.string "name"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20171013003212) do
     t.string "github_id"
     t.string "name"
     t.string "url"
+    t.string "langs"
     t.index ["project_id"], name: "index_repos_on_project_id"
   end
 

@@ -36,9 +36,12 @@ app.Users.prototype = {
 
   _render: function(ul, item) {
     var markup = [
+      '<span class="img">',
+        '<img src="' + item.image + '" />',
+      '</span>',
       '<span class="trello_id">' + item.trello_id + '</span>'
     ];
-    return $('<li style="decoration:none">')
+    return $('<li>')
       .append(markup.join(''))
       .appendTo(ul);
   }

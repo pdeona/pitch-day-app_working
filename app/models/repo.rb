@@ -21,4 +21,17 @@ class Repo < ApplicationRecord
     end
   end
 
+  def get_languages user
+    @client = Octokit::Client.new(access_token: user.github_oauth)
+    languages = @client.languages("#{user.github_id}/#{self.name}")
+    language_obj = (languages.to_hash)
+    langs = []
+    language_obj.each do |lang, count|
+      langs.push :language => lang, :count => count
+    end
+    self.langs = langs.to_json
+    if save!
+      langs
+    end
+  end
 end

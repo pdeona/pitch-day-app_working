@@ -6,7 +6,9 @@
   <div>
   <%= form.text_field :collaborators, class: 'form-control users-search',
         id: 'users-search-txt' %>
-    <div class="results" id="users-search-results"></div>
+    <div id="users-search-results">
+      <ul class='results'></ul>
+    </div>
   </div>
 <% end %>
 

@@ -14,20 +14,18 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     unless @project.repo.nil?
-      @repo_name = @project.repo.name
-      @client = Octokit::Client.new(access_token: @current_user.github_oauth)
-      languages = @client.languages("#{@current_user.github_id}/#{@repo_name}")
-      language_obj = (languages.to_hash)
-      langs = []
-      language_obj.each do |lang, count|
-        langs.push :language => lang, :count => count
+      if (@project.repo.langs.nil? || @project.repo.updated_at < (Time.new - 24.hours))
+        @langs = @project.repo.get_languages @current_user
+      else
+        @langs = @project.repo.langs
       end
-      @langs = langs.to_json
     end
-    @cards_status = @project.board.check_cards_job @current_user
-    respond_to do |f|
-      f.js { render partial: 'dashboard_show', project: @project, langs: @langs }
+    lists = ['In Progress', 'Blocked']
+    @cards_status = []
+    lists.each do |list|
+      @cards_status << @project.board.check_card_status(@current_user, list)
     end
+    render partial: 'dashboard_show', project: @project, langs: @langs, cards: @cards_status
   end
 
   # GET /projects/new
@@ -111,6 +109,10 @@ class ProjectsController < ApplicationController
     else
       render partial: 'add_repo'
     end
+  end
+
+  def board_details
+    @cards_status = @project.board.check_cards_job @current_user
   end
 
   private

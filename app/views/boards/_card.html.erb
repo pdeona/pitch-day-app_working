@@ -1,0 +1,9 @@
+<% unless collaborator.nil? %>
+  <span class='card-summary'>
+    <%= collaborator %> is working on <%= card_name %>
+  </span>
+<% else %>
+  <span class='card-warn'>
+    <%= card_name %> is unassigned!
+  </span>
+<% end %>

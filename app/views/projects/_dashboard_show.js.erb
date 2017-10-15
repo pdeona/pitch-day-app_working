@@ -1,6 +1,6 @@
 var project = <%= (@project).to_json.html_safe %>
 
-var project_repo = JSON.parse('<%= (@project.repo).to_json.html_safe %>')
+var project_repo = <%= (@project.repo).to_json.html_safe %>
 
 var due_date = new Date(project.due_by);
 
@@ -19,93 +19,110 @@ $(".project-box")
   )
 .append(
   $("<div id='clock'></div>")
+  )
+.append(
+  $("<span>" + collaborators.length + " collaborators on this project. </span>")
+  )
+.append(
+  $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")
   );
 
 $('#clock').countdown(due_date)
-                  .on('update.countdown', (evt) => {
-                    $('#clock').html(evt.strftime('%-w weeks %-d days %-H:%-M:%S'))
-                      .addClass('bg-info')
-                  })
-                  .on('finish.countdown',
-                    (evt) => {
-                      return $('#clock').html("Pitch Day has Arrived!")
-                    })
-                  .countdown('start');
+.on('update.countdown', (evt) => {
+  $('#clock').html(evt.strftime('%-w weeks %-d days %H:%M:%S'))
+  .addClass('bg-info')
+})
+.on('finish.countdown',
+  (evt) => {
+    return $('#clock').html("Pitch Day has Arrived!")
+  })
+.countdown('start');
+
 
 $(".repo-box")
-  .empty()
-  .append(
-    $('<canvas id="repoChart" height="400" width="580"></canvas>')
-      ).
-    append(() => {
-      if (project_repo === null) {
-        return "<%= j render 'add_repo' %>";
-      } else {
-        var repo_data = JSON.parse(<%= (@langs).to_json.html_safe %>),
-        repo_name =  project_repo.name;
+.empty()
+.append(
+  $('<canvas id="repoChart" height="400" width="580"></canvas>')
+  ).
+append(() => {
+  if (project_repo === null) {
+    return "<%= j render 'add_repo' %>";
+  } else {
+    var repo_data = JSON.parse(<%= (@langs).to_json.html_safe %>),
+    repo_name =  project_repo.name;
 
-          var labels = [], proportions = [];
+    var labels = [], proportions = [];
 
-          for (var i in repo_data) {
-            labels.push(repo_data[i]['language']);
-            proportions.push(repo_data[i]['count']);
-          }
+    for (var i in repo_data) {
+      labels.push(repo_data[i]['language']);
+      proportions.push(repo_data[i]['count']);
+    }
 
-        var title = $('.repo-title').html(`${repo_name} Code Analysis`);
+    var title = $('.repo-title').html(`${repo_name} Code Analysis`);
 
-        var ctx = $("#repoChart")[0].getContext('2d');
-        var data = {
-                labels: labels,
-                datasets: [{
-                  data: proportions,
-                  label: repo_name + ' code in bytes',
-                  backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'
-                  ], borderColor: [
-                      'rgba(255,99,132,1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)'
-                  ],borderWidth: 1,
-                  hoverBackgroundColor: [
-                      'rgba(255,99,132, .8)',
-                      'rgba(54, 162, 235, .8)',
-                      'rgba(255, 206, 86, .8)',
-                      'rgba(75, 192, 192, .8)',
-                      'rgba(153, 102, 255, .8)'
-                  ]
-                }]
-              }, options = {responsive: true};
+    var ctx = $("#repoChart")[0].getContext('2d');
+    var data = {
+      labels: labels,
+      datasets: [{
+        data: proportions,
+        label: repo_name + ' code in bytes',
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)'
+        ], borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)'
+        ],borderWidth: 1,
+        hoverBackgroundColor: [
+        'rgba(255,99,132, .8)',
+        'rgba(54, 162, 235, .8)',
+        'rgba(255, 206, 86, .8)',
+        'rgba(75, 192, 192, .8)',
+        'rgba(153, 102, 255, .8)'
+        ]
+      }]
+    }, options = {responsive: true};
 
-        var myChart = new Chart(ctx, {
-              type: 'horizontalBar',
-              data: data,
-              options: options
-          });
-      return [$('#repoChart').append(myChart), "<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>"];
-    };
-  });
+    var myChart = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: data,
+      options: options
+    });
+    return [$('#repoChart').append(myChart), "<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>"];
+  };
+});
+
+var html = ""
 
 $(".trello-box")
-  .empty()
-  .append(
-    $('<div id="board-info-box"></div>')
+.empty()
+.append(
+  $('<div id="board-info-box"></div>')
+    .append(() => {
+
+      <% @cards_status.each do |card_list| %>
+        <% card_list.each_pair do |key, value| %>
+          <% if key == :working %>
+            <% card_list[key].each do |card| %>
+              html += ("<%= j render partial: 'boards/card', locals: {collaborator: card[0], card_name: card[1]} %>")
+            <% end %>
+          <% else %>
+            <% card_list[key].each do |card| %>
+              html += ("<%= j render partial: 'boards/card', locals: {collaborator: nil, card_name: card} %>")
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      return html
+      })
     )
-  .append(
+    .append(
     $("<a href='" + project_board.url + "' class='btn btn-info' id='trello-link'><i class='fa fa-trello'></i> Go to Trello Board</a>")
-    )
-  .append(
-    $('<div id="collab-info-box"></div>')
-      .append(
-        $("<span>" + collaborators.length + " collaborators on this project. </span>")
-      )
-    )
-  .append(
-    $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")
     );
 
