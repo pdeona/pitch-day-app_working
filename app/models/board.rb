@@ -30,10 +30,10 @@ class Board < ApplicationRecord
     cards.each do |card|
       unless card.member_ids.empty?
         card.member_ids.each do |member|
-          card_status[:working] << [(@client.find(:member, member)).username, card.name]
+          card_status[:working] << [(@client.find(:member, member)).username, card.name, card.last_activity_date]
         end
       else
-        card_status[:unassigned] << card.name
+        card_status[:unassigned] << [card.name, card.last_activity_date]
       end
     end
     card_status

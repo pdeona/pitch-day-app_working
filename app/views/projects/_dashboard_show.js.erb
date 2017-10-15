@@ -113,19 +113,27 @@ $(".trello-box")
   $('<div id="board-inpr-info-box"><h3>Cards In Progress</h3></div>')
     .append(() => {
       var html = ""
-      html += '<%= (card_div :inpr).html_safe %>'
-      return (html)
-      })
-    )
+      html += '<%= (card_spans :inpr).html_safe %>'
+      if (html !== '') {
+        return (html)
+      } else {
+        return ('<span class="card-warn">You haven\'t started any cards!</span>')
+      }
+    })
+  )
   .append(
   $('<div id="board-blocked-info-box"><h3>Blocked Cards</h3></div>')
     .append(() => {
       var html = ""
-      html += '<%= (card_div :blocked).html_safe %>'
-      return (html)
-      })
-    )
-    .append(
+      html += '<%= (card_spans :blocked).html_safe %>'
+      if (html !== '') {
+        return (html)
+      } else {
+        return ('<span class="card-warn">You haven\'t started any cards!</span>')
+      }
+    })
+  )
+  .append(
       $("<a href='" + project_board.url + "' class='btn btn-info' id='trello-link'><i class='fa fa-trello'></i> Go to Trello Board</a>")
       )
     );
