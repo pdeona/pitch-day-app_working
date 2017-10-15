@@ -9,6 +9,13 @@ $(document).on('turbolinks:load', () => {
     evt.preventDefault();
     $('.btn-secondary').toggle('slideDown');
   });
+
+  $('.btn-secondary').on('click', (evt)=>{
+    $(evt.target).addClass('active');
+    $(evt.target).siblings().on('click', () => {
+      $(evt.target).removeClass('active');
+    })
+  })
 });
 
 var app = window.app = {};
