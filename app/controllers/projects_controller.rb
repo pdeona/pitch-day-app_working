@@ -34,15 +34,13 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new
-    @project.new_project_steps @current_user, project_params
+    @project = Project.new.new_project_steps @current_user, project_params
     respond_to do |format|
       if @project.save
-        @current_user.projects << @project
-        @current_user.save
-        format.html { redirect_to user_path, notice: 'Project was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
+        format.html { render partial: 'form' }
         format.js { render partial: 'dashboard_new' }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
@@ -99,6 +97,11 @@ class ProjectsController < ApplicationController
     else
       render partial: 'add_repo'
     end
+  end
+
+  def nav_index
+    @projects = @current_user.projects
+    render partial: 'nav_index', projects: @projects
   end
 
   private

@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @current_user.trello_oauth_verifier = oauth_token.secret
     return render root_path unless @current_user.save
     session[:user_id] = session[:new_user_id]
-    redirect_to user_path, notice: 'Trello connected!'
+    redirect_to root_path, notice: 'Trello connected!'
   end
 
   def graph

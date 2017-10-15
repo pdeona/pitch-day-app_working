@@ -6,8 +6,12 @@ class Project < ApplicationRecord
   validates :due_by, presence: true
 
   def new_project_steps user, project_params
-    Project.create(project_params)
-    create_project_board
+    @project = Project.new(project_params)
+    @project.user_id = user.id
+    if @project.save
+      create_project_board user
+    end
+    @project
   end
 
   def add_collaborators client, users
@@ -22,11 +26,7 @@ class Project < ApplicationRecord
 
   private
 
-  def create_project_board
-    if self.save! && self.board.nil?
-      Board.new.add_to_trello User.find(self.user_id), self
-    else
-      Board.find(self.board.id)
-    end
+  def create_project_board user
+    Board.new.add_to_trello user, @project
   end
 end

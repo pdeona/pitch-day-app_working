@@ -1,0 +1,200 @@
+#chartBox {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
+  justify-content: center;
+  width: 82vw;
+  height: 82vh;
+  background-color: #303f4e;
+  border-radius: .8em;
+  margin-top: 1.4em;
+  margin-left: 1.8em;
+}
+
+#chartBox > div {
+  color: black;
+  font-family: Lato;
+  font-weight: 400;
+  border-radius: 0.8em;
+  background-color: rgba(221,221,221, 0.75);
+  margin: 0.3em 0.3em;
+}
+
+.project-box {
+  width: 47.5%;
+  height: 48%;
+}
+
+.repo-box {
+  width: 47.5%;
+  height: 48%;
+}
+
+.trello-box {
+  width: 96%;
+  height: 48%;
+}
+
+.right {
+  float: right;
+  background: #303f4e;
+  height: 86vh;
+  width: 15vw;
+  border: 0;
+  margin: 0;
+ }
+
+ .right > a:first-child {
+  margin-top: 1em;
+ }
+
+ .right > .active {
+  background-color: #ddd;
+  color: black;
+  border-radius: 0;
+ }
+
+ .container {
+  float: left;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 85vw;
+ }
+
+ .container-title {
+  text-align: center;
+  justify-content: center;
+ }
+
+#repoChart {
+  display: none;
+  background-color: rgba(238, 238, 238, .7);
+  border-radius: 18px;
+  padding: 1.3em;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+a.btn-info {
+  width: 48%;
+  margin: .3em;
+}
+
+a.btn-info:even {
+  float: right;
+}
+
+ .left {
+  float: left;
+  background: #303f4e;
+  height: 86vh;
+  width: 15vw;
+  border: 0;
+  margin: 0;
+ }
+
+ .left > a:first-child {
+  margin-top: 1em;
+ }
+
+ #new-project-form {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+ }
+
+ #new-project-name {
+  color: white;
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+ }
+
+#new-project-name > label {
+  display: block;
+  color: black;
+}
+
+#user-card-image > img {
+  border-radius: 24px;
+  margin-left: 1em;
+  margin-top: 1em;
+}
+
+#user-card {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  max-height: 64px;
+  max-width: 100%;
+}
+
+#user-card-name {
+  margin-top: 1em;
+}
+
+#pdp-modal {
+  color: black;
+}
+
+.modal-body {
+  min-height: 8em;
+}
+
+.notice {
+  color: green;
+  size: 1.8em;
+}
+
+#users-search-txt input {
+  width: 100%;
+  font-size: 1em;
+  padding: .5em 1.3em;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 2em;
+}
+
+#users-search-txt input:focus {
+  border-color: #A5CEF5;
+}
+
+.users-search .results .ui-widget-content {
+  background: #fff;
+  font-size: .9em;
+  padding: .5em 0;
+  border-color: #ddd;
+  box-shadow: 0 .1em .2em rgba(187, 187, 187, 0.64);
+  line-height: 1.2;
+  max-height: 20em;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.users-search .results .ui-menu-item {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  padding: .4em .6em .4em 6.2em;
+  position: relative;
+  border: 0;
+  border-left: 5px solid transparent;
+  position: relative;
+  height: 6.5em;
+}
+
+.results > li {
+  list-style: none;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: 0;
+  margin: 0.2em;
+}

@@ -1,20 +1,27 @@
-
+<aside class="left">
+  <% if @current_user %>
+    <div id='user-card'>
+      <%= user_card @current_user %>
+    </div>
+  <% else %>
+    <%= link_to "Log in or Create an Account", login_path, class: 'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Create a new Project', new_user_project_path, remote: true,
+      class: 'btn btn-primary', id: 'new-project-user-btn' %>
+  <%= link_to 'Existing Projects', nav_project_index_path, remote: true,
+      class: 'btn btn-primary', id: 'nav-project-index' %>
+  <%= link_to 'Log out', logout_path, class: 'btn btn-primary', id: 'logout' %>
+</aside>
 
 <div class="container">
   <div id="chartBox">
-    <%= notice %>
-    <p class="container-title"></p>
+      <%= notice %>
+    <div class='project-box'>
+    </div>
+    <div class='repo-box'>
+      <canvas id="repoChart"></canvas>
+    </div>
+    <div class='trello-box'>
+    </div>
   </div>
 </div>
-<aside class="right">
-
-
-
-  <%= link_to 'Log in or Create an Account', '/auth/github',
-      class: 'btn btn-primary' %>
-  <%= link_to 'repo graph', graph_path, remote: true,
-      class: 'btn btn-primary' %>
-  <%= link_to 'project show', user_project_path(Project.last), remote: true,
-      class: 'btn btn-primary' %>
-  <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
-</aside>

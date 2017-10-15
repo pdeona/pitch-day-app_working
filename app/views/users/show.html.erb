@@ -5,17 +5,20 @@
   </div>
   <%= link_to 'Create a new Project', new_user_project_path, remote: true,
       class: 'btn btn-primary', id: 'new-project-user-btn' %>
-  <%= link_to 'project show', user_project_path(Project.last), remote: true,
+  <%= link_to 'Existing Projects', user_projects_path, remote: true,
       class: 'btn btn-primary' %>
   <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
 </aside>
 
 <div class="container">
   <div id="chartBox">
-    <p class="container-title">
       <%= notice %>
-    </p>
-    <canvas id="repoChart"></canvas>
-    <div class="form-box"></div>
+    <div class='project-box'>
+    </div>
+    <div class='repo-box'>
+      <canvas id="repoChart"></canvas>
+    </div>
+    <div class='trello-box'>
+    </div>
   </div>
 </div>
