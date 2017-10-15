@@ -1,7 +1,9 @@
-<%= form_for add_repo_path(@project), remote: true do |form| %>
+<div id="link-repo-form">
+  <%= form_for add_repo_path(@project), remote: true do |form| %>
+    <%= form.label :repo_name %>
+    <%= form.text_field :repo_name, class: 'form-control' %>
 
-  <%= form.label :repo_name %>
-  <%= form.text_field :repo_name, class: 'form-control' %>
-
-  <%= form.submit 'Link to Github', class: 'btn btn-primary' %>
-<% end %>
+    <%= form.submit("Link to Github", class: 'btn btn-info',
+            id: 'link-git-btn') %>
+  <% end %>
+</div>

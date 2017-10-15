@@ -6,7 +6,7 @@ var due_date = new Date(project.due_by);
 
 var project_board = <%= (@project.board).nil? ? j('Setting up your Trello board...') : @project.board.to_json.html_safe %>
 
-var collaborators = <%= (@project.collaborators.count).to_json.html_safe %>
+var collaborators = <%= (@project.collaborators).to_json.html_safe %>
 
 
 $(".project-box")
@@ -102,7 +102,7 @@ $(".trello-box")
   .append(
     $('<div id="collab-info-box"></div>')
       .append(
-        $("<span>" + collaborators + " collaborators on this project. </span>")
+        $("<span>" + collaborators.length + " collaborators on this project. </span>")
       )
     )
   .append(

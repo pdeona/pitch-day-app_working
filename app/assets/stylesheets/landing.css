@@ -1,3 +1,4 @@
+
 #chartBox {
   display: flex;
   flex-flow: row wrap;
@@ -41,10 +42,24 @@
   height: 48%;
 }
 
-.repo-box > a.btn {
-  width: 80%;
+#link-git-btn {
+  width: 462px;
+  margin-top: 1.8em;
   align-self: center;
+  justify-content: center;
   text-align: center;
+}
+
+#link-repo-form {
+  align-self: center;
+  width: 80%;
+}
+
+#link-repo-form > form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-self: center;
+  justify-content: center;
 }
 
 .trello-box {
@@ -213,10 +228,12 @@ a.btn-secondary {
   color: black;
 }
 
-#user-card-image > img {
+.user-card-image {
   border-radius: 24px;
   margin-left: 1em;
   margin-top: 1em;
+  max-height: 64px;
+  max-width: 64px;
 }
 
 #user-card {
