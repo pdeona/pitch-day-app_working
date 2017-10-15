@@ -14,17 +14,15 @@ $(".project-box")
 .append(
   $("<div> Project due by:" + '<%= @project.due_by.month %>' + "/" + '<%= @project.due_by.day %>' + "/" + '<%= @project.due_by.year %>' + "</div>")
   );
-
 $(".repo-box")
   .empty()
   .append(() => {
-    if (project_repo === null) {
-      return $("<%= j render 'add_repo' %>");
-    } else {
-      return $(
-        "<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>");
-    }
-  });
+  if (project_repo === null) {
+    return "<%= j render 'add_repo' %>";
+  } else {
+    return "<canvas id='repoChart' /><a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>";
+  };
+});
 
 $(".trello-box")
   .empty()
@@ -39,51 +37,31 @@ $(".trello-box")
     );
 
 
-if (project_repo !== null) {
-  var data = JSON.parse(<%= (@langs).to_json.html_safe %>),
+if (project_repo !== null && project_repo !== undefined) {
+  var repo_data = JSON.parse(<%= (@langs).to_json.html_safe %>),
     repo_name =  project_repo.name;
 
   var labels = [], proportions = [];
 
-  for (var i in data) {
-    labels.push(data[i]['language']);
-    proportions.push(data[i]['count']);
+  for (var i in repo_data) {
+    labels.push(repo_data[i]['language']);
+    proportions.push(repo_data[i]['count']);
   }
 
-
   var ctx = $("#repoChart")[0].getContext('2d');
+  var data = {
+        datasets: [{
+          data: proportions
+        }],
+        labels: labels
+      }, options = {responsive: false};
+
   var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: labels,
-          datasets: [{
-            label: repo_name,
-            data: proportions,
-            backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)'
-                ],
-                borderWidth: 1,
-                hoverBackgroundColor: [
-                    'rgba(255,99,132, .8)',
-                    'rgba(54, 162, 235, .8)',
-                    'rgba(255, 206, 86, .8)',
-                    'rgba(75, 192, 192, .8)',
-                    'rgba(153, 102, 255, .8)'
-                ]
-          }]
-        }
-      });
+      type: 'horizontalBar',
+      data: data,
+      options: options
+  });
 
   var title = $('.repo-title').html(`${repo_name} Code Analysis`);
+
 }

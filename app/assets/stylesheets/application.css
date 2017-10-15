@@ -95,3 +95,14 @@ input, select, button, textarea {
   font-size: 1em;
   height: 1.8em;
  }
+.btn-wyncode {
+  background-color:#73c2e6;
+  width: 60%;
+  align-self: center;
+}
+
+.actions {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}

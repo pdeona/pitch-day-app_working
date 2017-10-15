@@ -13,15 +13,17 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
-    @repo_name = @project.repo.name
-    @client = Octokit::Client.new(access_token: @current_user.github_oauth)
-    languages = @client.languages("#{@current_user.github_id}/#{@repo_name}")
-    language_obj = (languages.to_hash)
-    langs = []
-    language_obj.each do |lang, count|
-      langs.push :language => lang, :count => count
+    unless @project.repo.nil?
+      @repo_name = @project.repo.name
+      @client = Octokit::Client.new(access_token: @current_user.github_oauth)
+      languages = @client.languages("#{@current_user.github_id}/#{@repo_name}")
+      language_obj = (languages.to_hash)
+      langs = []
+      language_obj.each do |lang, count|
+        langs.push :language => lang, :count => count
+      end
+      @langs = langs.to_json
     end
-    @langs = langs.to_json
     respond_to do |f|
       f.js { render partial: 'dashboard_show', project: @project, langs: @langs }
     end
