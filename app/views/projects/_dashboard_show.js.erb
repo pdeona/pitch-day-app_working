@@ -21,11 +21,12 @@ $(".project-box")
   $("<div id='clock'></div>")
   );
 
-$('#clock').countdown(due_date).
-                  on('update.countdown', (evt) => {
-                    $('#clock').html(evt.strftime('%W weeks %-d days %-H h %M min %S sec'))
-                  }).
-                  on('finish.countdown',
+$('#clock').countdown(due_date)
+                  .on('update.countdown', (evt) => {
+                    $('#clock').html(evt.strftime('%-w weeks %-d days %-H:%-M:%S'))
+                      .addClass('bg-info')
+                  })
+                  .on('finish.countdown',
                     (evt) => {
                       return $('#clock').html("Pitch Day has Arrived!")
                     })
@@ -93,10 +94,16 @@ $(".repo-box")
 $(".trello-box")
   .empty()
   .append(
-    $("<a href='" + project_board.url + "' class='btn btn-info'><i class='fa fa-trello'></i> Go to Trello Board</a>")
+    $('<div id="board-info-box"></div>')
     )
   .append(
-    $("<span>" + collaborators + " collaborators on this project. </span>")
+    $("<a href='" + project_board.url + "' class='btn btn-info' id='trello-link'><i class='fa fa-trello'></i> Go to Trello Board</a>")
+    )
+  .append(
+    $('<div id="collab-info-box"></div>')
+      .append(
+        $("<span>" + collaborators + " collaborators on this project. </span>")
+      )
     )
   .append(
     $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")

@@ -16,6 +16,30 @@ class Board < ApplicationRecord
     end
   end
 
+  def check_card_status user, list_name
+    @client = Trello::Client.new(
+        consumer_key: Rails.application.secrets['trello_key'],
+        consumer_secret: Rails.application.secrets['trello_secret'],
+        oauth_token: user.trello_oauth,
+        oauth_secret: user.trello_member_secret)
+    board = @client.find(:board, self.trello_id)
+    inpr_list_id = board.lists.collect { |list| list.id if list.name == list_name }.join
+    list = @client.find(:list, inpr_list_id)
+    cards = list.cards
+    card_status = {working: [], unassigned: []}
+    cards.each do |card|
+      card.member_ids.each do |member|
+        if member.nil?
+          card_status[:unassigned] << card.name
+        else
+          card_status[:working] << [(@client.find(:member, member)).username, card.name]
+        end
+      end
+    end
+    card_status
+  end
+
+
   def add_to_trello user, project
     create_trello_board(user, project)
   end

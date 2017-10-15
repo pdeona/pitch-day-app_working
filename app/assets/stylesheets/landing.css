@@ -19,7 +19,6 @@
   background-color: rgba(221,221,221, 0.75);
   margin: 0.3em 0.3em;
   display: flex;
-  flex-flow: column nowrap;
   align-content: center;
   justify-content: center;
 }
@@ -50,17 +49,43 @@
 
 .trello-box {
   display: flex;
-  flex-flow: column nowrap;
-  align-content: center;
+  flex-flow: column wrap;
+  align-content: space-between;
   justify-content: center;
   width: 96%;
   height: 48%;
   text-align: center;
 }
 
-.trello-box > a {
+.trello-box > a.btn {
+  max-width: 35%;
   align-self: center;
+  margin-top: 1.5em;
 }
+
+.trello-box > div {
+  height: 80%;
+  width: 46%;
+  background: rgba(238, 238, 238, 0.7);
+  border-radius: 0.8em;
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+
+#board-info-box {
+  margin-right: 2.4em;
+}
+
+#clock {
+  border-radius: 0.6em;
+  width: 45%;
+  height: 2.5em;
+  align-self: center;
+  padding-top: 0.5em;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
 
 #chartBox > div > a {
   max-height: 2.5em;
