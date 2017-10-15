@@ -98,31 +98,59 @@ append(() => {
   };
 });
 
-var html = ""
+
 
 $(".trello-box")
 .empty()
 .append(
-  $('<div id="board-info-box"></div>')
+  $('<div class="card-container"></div>')
+.append(
+  $('<div id="board-inpr-info-box"><h3>Cards In Progress</h3></div>')
     .append(() => {
-
-      <% @cards_status.each do |card_list| %>
-        <% card_list.each_pair do |key, value| %>
-          <% if key == :working %>
-            <% card_list[key].each do |card| %>
-              html += ("<%= j render partial: 'boards/card', locals: {collaborator: card[0], card_name: card[1]} %>")
-            <% end %>
-          <% else %>
-            <% card_list[key].each do |card| %>
-              html += ("<%= j render partial: 'boards/card', locals: {collaborator: nil, card_name: card} %>")
+      var html = ""
+      <% @cards_status.each_pair do |card_list, cards| %>
+        <% if card_list == :inpr %>
+          <% cards.each do |card_data| %>
+            <% card_data.each_pair do |key, card| %>
+              <% if key == :working %>
+                <% card.each do |card| %>
+                  html += ("<%= j render partial: 'boards/card', locals: {collaborator: card[0], card_name: card[1]} %>")
+                <% end %>
+              <% else %>
+                <% card.each do |card| %>
+                  html += ("<%= j render partial: 'boards/card', locals: {collaborator: nil, card_name: card} %>")
+                <% end %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
       <% end %>
-      return html
+      return (html)
+      })
+    )
+  .append(
+  $('<div id="board-blocked-info-box"><h3>Blocked Cards</h3></div>')
+    .append(() => {
+      var html = ""
+      <% @cards_status.each_pair do |card_list, cards| %>
+      <% p card_list, cards %>
+        <% if card_list == :blocked %>
+          <% cards.each do |card_data| %>
+            <% card_data.each_pair do |key, card| %>
+              <% if key == :working %>
+                <% card.each do |card| %>
+                  html += ("<%= j render partial: 'boards/card', locals: {collaborator: card[0], card_name: card[1]} %>")
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      return (html + '</div>')
       })
     )
     .append(
-    $("<a href='" + project_board.url + "' class='btn btn-info' id='trello-link'><i class='fa fa-trello'></i> Go to Trello Board</a>")
+      $("<a href='" + project_board.url + "' class='btn btn-info' id='trello-link'><i class='fa fa-trello'></i> Go to Trello Board</a>")
+      )
     );
 

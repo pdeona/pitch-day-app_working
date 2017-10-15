@@ -21,9 +21,13 @@ class ProjectsController < ApplicationController
       end
     end
     lists = ['In Progress', 'Blocked']
-    @cards_status = []
+    @cards_status = {inpr: [], blocked: []}
     lists.each do |list|
-      @cards_status << @project.board.check_card_status(@current_user, list)
+      if list == 'In Progress'
+        @cards_status[:inpr] << @project.board.check_card_status(@current_user, list)
+      else
+        @cards_status[:blocked] << @project.board.check_card_status(@current_user, list)
+      end
     end
     render partial: 'dashboard_show', project: @project, langs: @langs, cards: @cards_status
   end
