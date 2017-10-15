@@ -7,7 +7,7 @@
 $(document).on('turbolinks:load', () => {
   $('#projects-btn').on('click', (evt) => {
     evt.preventDefault();
-    $('.btn-secondary').toggle();
+    $('.btn-secondary').toggle('slideDown');
   });
 });
 

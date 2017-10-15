@@ -24,6 +24,7 @@ class ProjectsController < ApplicationController
       end
       @langs = langs.to_json
     end
+    @cards_status = @project.board.check_cards_job @current_user
     respond_to do |f|
       f.js { render partial: 'dashboard_show', project: @project, langs: @langs }
     end

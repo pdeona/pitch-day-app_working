@@ -1,12 +1,12 @@
 class MakeTrelloBoardJob < ApplicationJob
   queue_as :new_board
 
-  def perform(user_oauth, user_secret, project)
+  def perform(user, project)
     @client = Trello::Client.new(
       consumer_key: Rails.application.secrets['trello_key'],
       consumer_secret: Rails.application.secrets['trello_secret'],
-      oauth_token: user_oauth,
-      oauth_secret: user_secret)
+      oauth_token: user.trello_oauth,
+      oauth_secret: user.trello_member_secret)
     board = @client.create(:board, {name: project.name})
     new_board = Board.new(
             name: project.name,

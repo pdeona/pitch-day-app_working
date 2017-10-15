@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   get 'auth/trello/callback' => 'users#trello_callback'
 
-  get 'auth/github', as: 'github_login',  as: 'login'
+  get 'auth/github', as: 'login'
 
   get 'auth/trello', as: 'trello_login'
 

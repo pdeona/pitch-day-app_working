@@ -28,12 +28,12 @@ class Board < ApplicationRecord
     cards = list.cards
     card_status = {working: [], unassigned: []}
     cards.each do |card|
-      card.member_ids.each do |member|
-        if member.nil?
-          card_status[:unassigned] << card.name
-        else
+      unless card.member_ids.empty?
+        card.member_ids.each do |member|
           card_status[:working] << [(@client.find(:member, member)).username, card.name]
         end
+      else
+        card_status[:unassigned] << card.name
       end
     end
     card_status
@@ -46,9 +46,14 @@ class Board < ApplicationRecord
 
   def create_trello_board user, project
     MakeTrelloBoardJob.new(
-      user.trello_oauth,
-      user.trello_member_secret,
+      user,
       project
+      ).enqueue
+  end
+
+  def check_cards_job user
+    CheckBoardCardsJob.new(
+        user, self
       ).enqueue
   end
 
