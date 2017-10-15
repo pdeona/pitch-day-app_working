@@ -95,8 +95,3 @@ input, select, button, textarea {
   font-size: 1em;
   height: 1.8em;
  }
-
-.btn-primary: hover {
-  border: 0;
-  width: inherit;
-}

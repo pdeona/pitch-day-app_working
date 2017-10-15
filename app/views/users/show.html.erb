@@ -5,8 +5,11 @@
   </div>
   <%= link_to 'Create a new Project', new_user_project_path, remote: true,
       class: 'btn btn-primary', id: 'new-project-user-btn' %>
-  <%= link_to 'Existing Projects', user_projects_path, remote: true,
+  <%= link_to 'Existing Projects', '#',
       class: 'btn btn-primary' %>
+      <% @projects.each do |project| %>
+        <%= link_to project.name, %>
+      <% end %>
   <%= link_to 'Log out', logout_path, class: 'btn btn-primary' %>
 </aside>
 

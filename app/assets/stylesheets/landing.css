@@ -19,30 +19,46 @@
   background-color: rgba(221,221,221, 0.75);
   margin: 0.3em 0.3em;
   display: flex;
-  flex-flow: column;
+  flex-flow: column nowrap;
   align-content: center;
   justify-content: center;
 }
 
 .project-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  width: 47.5%;
+  height: 48%;
+  text-align: center;
+}
+
+.repo-box {
+  display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
   width: 47.5%;
   height: 48%;
 }
 
-.repo-box {
-  justify-content: center;
-  width: 47.5%;
-  height: 48%;
+.repo-box > a.btn {
+  width: 80%;
+  align-self: center;
+  text-align: center;
 }
 
 .trello-box {
   display: flex;
-  flex-flow: column nowrap:
+  flex-flow: column nowrap;
   align-content: center;
   justify-content: center;
   width: 96%;
   height: 48%;
+  text-align: center;
+}
+
+.trello-box > a {
+  align-self: center;
 }
 
 #chartBox > div > a {
@@ -92,6 +108,9 @@
 
 .btn-primary {
   width: 100%;
+  background-color: transparent;
+  border: 0;
+  padding: 1em;
 }
 
 a.btn-info {
@@ -102,6 +121,36 @@ a.btn-info {
 a.btn-info:even {
   float: right;
 }
+
+.projects-nav-gutter {
+  height: auto;
+  margin: 0;
+  padding: 0.2em 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: column nowrap;
+}
+
+a.btn-secondary {
+  background-color: #eee;
+  color: black;
+  justify-content: center;
+  text-align: center;
+  width: inherit;
+  border-radius: 0;
+  display: none;
+  z-index: 0;
+  border: 0;
+  height: auto;
+  padding: 0.4em;
+  margin: 0 auto;
+}
+
+.btn-secondary:hover {
+  background-color: #ddd;
+}
+
 
  .left {
   float: left;
@@ -207,8 +256,4 @@ a.btn-info:even {
   list-style: none;
 }
 
-.btn-primary {
-  background-color: transparent;
-  border: 0;
-  margin: 0.2em;
-}
+

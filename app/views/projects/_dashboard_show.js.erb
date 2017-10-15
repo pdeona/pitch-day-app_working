@@ -1,6 +1,6 @@
 var project = <%= (@project).to_json.html_safe %>
 
-var project_repo = <%= (@project.repo).to_json.html_safe %>
+var project_repo = JSON.parse('<%= (@project.repo).to_json.html_safe %>')
 
 var project_board = <%= (@project.board).nil? ? j('Setting up your Trello board...') : @project.board.to_json.html_safe %>
 
@@ -21,7 +21,8 @@ $(".repo-box")
     if (project_repo === null) {
       return $("<%= j render 'add_repo' %>");
     } else {
-      return $("<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>");
+      return $(
+        "<a href='" + project_repo.url + "' class='btn btn-info'><i class='fa fa-github'></i> Go to Github Repo</a>");
     }
   });
 
@@ -36,3 +37,53 @@ $(".trello-box")
   .append(
     $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")
     );
+
+
+if (project_repo !== null) {
+  var data = JSON.parse(<%= (@langs).to_json.html_safe %>),
+    repo_name =  project_repo.name;
+
+  var labels = [], proportions = [];
+
+  for (var i in data) {
+    labels.push(data[i]['language']);
+    proportions.push(data[i]['count']);
+  }
+
+
+  var ctx = $("#repoChart")[0].getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+            label: repo_name,
+            data: proportions,
+            backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1,
+                hoverBackgroundColor: [
+                    'rgba(255,99,132, .8)',
+                    'rgba(54, 162, 235, .8)',
+                    'rgba(255, 206, 86, .8)',
+                    'rgba(75, 192, 192, .8)',
+                    'rgba(153, 102, 255, .8)'
+                ]
+          }]
+        }
+      });
+
+  var title = $('.repo-title').html(`${repo_name} Code Analysis`);
+}

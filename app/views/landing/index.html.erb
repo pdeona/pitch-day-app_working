@@ -3,14 +3,20 @@
     <div id='user-card'>
       <%= user_card @current_user %>
     </div>
+      <%= link_to 'Create a new Project', new_user_project_path, remote: true,
+      class: 'btn btn-primary', id: 'new-project-user-btn' %>
+      <%= link_to 'Existing Projects', '#', id: 'projects-btn',
+          class: 'btn btn-primary' %>
+      <div class='projects-nav-gutter'>
+        <% @projects.each do |project| %>
+          <%= link_to project.name, user_project_path(project),
+                class: 'btn btn-secondary', remote: true %>
+        <% end %>
+      </div>
+       <%= link_to 'Log out', logout_path, class: 'btn btn-primary', id: 'logout' %>
   <% else %>
     <%= link_to "Log in or Create an Account", login_path, class: 'btn btn-primary' %>
   <% end %>
-  <%= link_to 'Create a new Project', new_user_project_path, remote: true,
-      class: 'btn btn-primary', id: 'new-project-user-btn' %>
-  <%= link_to 'Existing Projects', nav_project_index_path, remote: true,
-      class: 'btn btn-primary', id: 'nav-project-index' %>
-  <%= link_to 'Log out', logout_path, class: 'btn btn-primary', id: 'logout' %>
 </aside>
 
 <div class="container">
@@ -19,6 +25,7 @@
     <div class='project-box'>
     </div>
     <div class='repo-box'>
+      <span class='repo-title'></span>
       <canvas id="repoChart"></canvas>
     </div>
     <div class='trello-box'>
