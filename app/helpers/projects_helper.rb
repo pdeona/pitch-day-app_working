@@ -3,7 +3,7 @@ module ProjectsHelper
   def card_spans cards, list_name
     html = ""
     cards.each_pair do |card_list, cards|
-      if card_list == list_name.to_sym
+      if (card_list == list_name.to_sym || card_list == list_name)
         cards.each do |card_data|
           card_data.each_pair do |key, card|
             if key == 'unassigned' || key == :unassigned

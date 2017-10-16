@@ -24,8 +24,12 @@ $(".project-box")
   $("<span>" + collaborators.length + " <%= 'collaborator'.pluralize(@project.collaborators.length) %> on this project. </span>")
   )
 .append(
-  $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")
-  );
+  $("<div class='project-btns'><%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %></div>")
+.append(
+  $("<%= j link_to 'Delete this Project', user_projects_path(@project),method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you wish to delete this project?' } %>")
+  )
+);
+
 
 $('#clock').countdown(due_date)
 .on('update.countdown', (evt) => {
@@ -113,7 +117,7 @@ $(".trello-box")
   $('<div id="board-inpr-info-box"><h3>Cards In Progress</h3></div>')
     .append(() => {
       var html = ''
-      html += '<%= (card_spans cards, :inpr).html_safe %>'
+      html += '<%= (card_spans @cards_status, "inpr").html_safe %>'
       if (html !== '') {
         return (html)
       } else {
@@ -125,7 +129,7 @@ $(".trello-box")
   $('<div id="board-blocked-info-box"><h3>Blocked Cards</h3></div>')
     .append(() => {
       var html = ''
-      html += '<%= (card_spans cards, :blocked).html_safe %>'
+      html += '<%= (card_spans @cards_status, "blocked").html_safe %>'
       if (html !== '') {
         return (html)
       } else {

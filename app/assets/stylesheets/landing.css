@@ -47,7 +47,7 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  align-content: center;
+  align-content: flex-end;
   width: 47.5%;
   height: 48%;
   max-width: 47.5%;
@@ -56,6 +56,7 @@
 
 .repo-box > a.btn {
   align-self: center;
+  margin-top: 1.5em;
 }
 
 #trello-link {
@@ -105,21 +106,21 @@
   width: 80%;
   background: rgba(238, 238, 238, 0.7);
   border-radius: 0.8em;
-  overflow-x: auto;
-  overflow-y: wrap;
+  overflow-x: hidden;
+  overflow-y: scroll;
   align-self: center;
   justify-content: center;
   text-align: center;
 }
 
 #board-inpr-info-box, #board-blocked-info-box {
-  min-width: 40%;
+  min-width: 45%;
   min-height: 60%;
-  max-width: 40%;
+  max-width: 45%;
   max-height: 60%;
   display: flex;
   flex-flow: column nowrap;
-  align-content: center;
+  align-content: flex-start;
   justify-content: center;
   align-self: center;
   overflow-y: scroll;
@@ -127,13 +128,13 @@
   margin: 1em 1em;
   box-shadow: inset 0 0 6px 0;
   border-radius: 0.8em;
-  opacity: 0.7;
 }
+
 
 .projects-nav-gutter > a.btn.active, .projects-nav-gutter > a.btn:active,
 .projects-nav-gutter > a.btn-secondary.active {
-  box-shadow: 0;
-  -webkit-box-shadow: 0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 .card-container > div > span {
@@ -149,7 +150,7 @@
 }
 
 .card-container > div > span.card-warn {
-  background-color: rgba(238, 0, 0, 0.7);
+  background-color: rgba(225, 0, 0, 0.6);
   color: white;
 }
 
@@ -197,8 +198,9 @@
 
 a.btn-info {
   width: 48%;
-  margin: .3em;
 }
+
+
 
 .projects-nav-gutter {
   height: auto;
@@ -230,7 +232,6 @@ a.btn-info {
   background-color: #eee;
   border: 0;
 }
-
 
 .left {
   float: left;
@@ -286,15 +287,8 @@ a.btn-info {
   margin-top: 1em;
 }
 
-
-
 .modal-body {
   min-height: 8em;
-}
-
-.notice {
-  color: green;
-  size: 1.8em;
 }
 
 #users-search-txt input {
@@ -336,7 +330,21 @@ a.btn-info {
   list-style: none;
 }
 
-
 .repo-title {
   text-align: center;
+}
+.project-btns {
+  width: 80%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.project-btns > a.btn {
+  max-width: 50%;
+  min-width: 50%;
+  max-height: 2.5em;
+  margin: 1em 0.5em;
 }

@@ -33,4 +33,5 @@ Rails.application.routes.draw do
 
   get 'projects' => 'projects#nav_index', as: 'nav_project_index'
 
+  delete 'user/projects.:id' => 'projects#destroy'
 end

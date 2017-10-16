@@ -13,28 +13,34 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    board = @project.board
     unless @project.repo.nil?
-      if (@project.repo.langs.nil? || @project.repo.updated_at < (Time.new - 24.hours))
+      if (@project.repo.langs.nil? || @project.repo.updated_at < (Time.new - 12.hours))
         @langs = @project.repo.get_languages @current_user
       else
         @langs = @project.repo.langs
       end
     end
-    @cards_status = JSON.parse(@project.board.card_status)
-    if (@cards_status.empty? || @project.board.updated_at < (Time.now - 1.hour))
-      lists = ['In Progress', 'Blocked']
-      @cards_status = {inpr: [], blocked: []}
-      lists.each do |list|
-        if list == 'In Progress'
-          @cards_status[:inpr] << @project.board.check_card_status(@current_user, list)
-        else
-          @cards_status[:blocked] << @project.board.check_card_status(@current_user, list)
+    if (!(board.nil?) || board.card_status == ("{\"blocked\":[{\"unassigned\":[],\"working\":[]}],\"inpr\":[{\"unassigned\":[],\"working\":[]}]}") || board.card_status.nil? )
+      if (board.updated_at < Time.new - 1.hour)
+        lists = ['Blocked', 'In Progress']
+        @cards_status = {blocked: [], inpr: []}
+        lists.each do |list|
+          if list == 'Blocked'
+            @cards_status[:blocked] << board.check_card_status(@current_user, list)
+          else
+            @cards_status[:inpr] << board.check_card_status(@current_user, list)
+          end
         end
+        board.card_status = (@cards_status).to_json
+        board.save! unless @cards_status.nil?
+      else
+        @cards_status = JSON.parse(board.card_status)
       end
-      @project.board.card_status = (@cards_status).to_json
-      @project.board.save! unless @cards_status.nil?
+    else
+      @cards_status = 'Creating your Trello Board...'
     end
-    render partial: 'dashboard_show', locals: { project: @project, langs: @langs, cards: @cards_status }
+    render partial: 'dashboard_show', project: @project, langs: @langs, cards: @cards_status
   end
 
   # GET /projects/new
@@ -132,6 +138,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :due_by, :repo_id, :repo_name)
+      params.require(:project).permit(:name, :due_by, :repo_name, :user_id)
     end
 end

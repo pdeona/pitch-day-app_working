@@ -98,7 +98,6 @@ input, select, button, textarea {
 
 .btn-wyncode {
   background-color:#73c2e6;
-  width: 60%;
   align-self: center;
 }
 
@@ -116,4 +115,8 @@ input, select, button, textarea {
 
 .left > a.btn-primary, .left > a.btn-primary:visited {
   background-color: transparent;
+}
+
+.btn-danger {
+  opacity: 0.75;
 }

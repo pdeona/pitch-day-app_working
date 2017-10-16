@@ -26,14 +26,14 @@ class Board < ApplicationRecord
     list_id = board.lists.collect { |list| list.id if list.name == list_name }.join
     list = @client.find(:list, list_id)
     cards = list.cards
-    card_status = {working: [], unassigned: []}
+    card_status = {unassigned: [], working: []}
     cards.each do |card|
-      unless card.member_ids.empty?
+      if card.member_ids.empty?
+        card_status[:unassigned] << [card.name, card.last_activity_date]
+      else
         card.member_ids.each do |member|
           card_status[:working] << [(@client.find(:member, member)).username, card.name, card.last_activity_date]
         end
-      else
-        card_status[:unassigned] << [card.name, card.last_activity_date]
       end
     end
     card_status

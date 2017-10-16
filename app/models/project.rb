@@ -2,6 +2,7 @@ class Project < ApplicationRecord
   has_and_belongs_to_many :collaborators, class_name: 'User'
   has_one :board
   has_one :repo
+  belongs_to :user
 
   validates :due_by, presence: true
 
@@ -16,7 +17,7 @@ class Project < ApplicationRecord
 
   def add_collaborators client, users
     users.each do |user|
-      self.collaborators << user
+      self.collaborators << user unless user.id == self.user_id
     end
     if self.save!
       self.board.add_collaborators client, users
