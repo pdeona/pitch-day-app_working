@@ -23,8 +23,8 @@ class Board < ApplicationRecord
         oauth_token: user.trello_oauth,
         oauth_secret: user.trello_member_secret)
     board = @client.find(:board, self.trello_id)
-    inpr_list_id = board.lists.collect { |list| list.id if list.name == list_name }.join
-    list = @client.find(:list, inpr_list_id)
+    list_id = board.lists.collect { |list| list.id if list.name == list_name }.join
+    list = @client.find(:list, list_id)
     cards = list.cards
     card_status = {working: [], unassigned: []}
     cards.each do |card|
@@ -38,7 +38,6 @@ class Board < ApplicationRecord
     end
     card_status
   end
-
 
   def add_to_trello user, project
     create_trello_board(user, project)

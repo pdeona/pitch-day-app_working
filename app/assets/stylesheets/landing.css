@@ -6,7 +6,7 @@
   justify-content: center;
   width: 82vw;
   height: 82vh;
-  background-color: #303f4e;
+  background-color: #333;
   border-radius: .8em;
   margin-top: 1.4em;
   margin-left: 1.8em;
@@ -17,17 +17,17 @@
   font-family: Lato;
   font-weight: 400;
   border-radius: 0.8em;
-  background-color: rgba(221,221,221, 0.75);
   margin: 0.3em 0.3em;
   display: flex;
   align-content: center;
   justify-content: center;
+  background-color: rgba(238, 238, 238, 1);
 }
 
-.project-box {
+#chartBox > div.project-box {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: space-between;
   align-content: space-between;
   width: 47.5%;
   height: 48%;
@@ -35,14 +35,15 @@
 }
 
 .project-box > span {
-  margin: 1em;
+  margin: 1.8em;
 }
 
 .project-box > .btn {
   align-self: center;
+  margin-bottom: 1.8em;
 }
 
-.repo-box {
+#chartBox > .repo-box {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -112,6 +113,8 @@
 }
 
 #board-inpr-info-box, #board-blocked-info-box {
+  min-width: 40%;
+  min-height: 60%;
   max-width: 40%;
   max-height: 60%;
   display: flex;
@@ -122,6 +125,15 @@
   overflow-y: scroll;
   overflow-x: auto;
   margin: 1em 1em;
+  box-shadow: inset 0 0 6px 0;
+  border-radius: 0.8em;
+  opacity: 0.7;
+}
+
+.projects-nav-gutter > a.btn.active, .projects-nav-gutter > a.btn:active,
+.projects-nav-gutter > a.btn-secondary.active {
+  box-shadow: 0;
+  -webkit-box-shadow: 0;
 }
 
 .card-container > div > span {
@@ -138,6 +150,7 @@
 
 .card-container > div > span.card-warn {
   background-color: rgba(238, 0, 0, 0.7);
+  color: white;
 }
 
 .card-container > div > span.card-1d-old {
@@ -152,43 +165,13 @@
   padding-top: 0.5em;
   justify-content: center;
   margin-top: 0.5em;
+  background-color: rgba(225, 0, 0, 0.6);
+  color: white;
 }
 
 
 #chartBox > div > a {
   max-height: 2.5em;
-}
-
-.right {
-  float: right;
-  background: #303f4e;
-  height: 86vh;
-  width: 15vw;
-  border: 0;
-  margin: 0;
-}
-
-.right > a:first-child {
-  margin-top: 1em;
-}
-
-.right > .active {
-  background-color: #ddd;
-  color: black;
-  border-radius: 0;
-}
-
-.container {
-  float: left;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  width: 85vw;
-}
-
-.container-title {
-  text-align: center;
-  justify-content: center;
 }
 
 #repoChart {
@@ -201,6 +184,10 @@
   align-self: center;
 }
 
+#pdp-modal {
+  color: black;
+}
+
 .btn-primary {
   width: 100%;
   background-color: inherit;
@@ -211,10 +198,6 @@
 a.btn-info {
   width: 48%;
   margin: .3em;
-}
-
-a.btn-info:even {
-  float: right;
 }
 
 .projects-nav-gutter {
@@ -251,7 +234,7 @@ a.btn-info:even {
 
 .left {
   float: left;
-  background: #303f4e;
+  background: #333;
   height: 86vh;
   width: 15vw;
   border: 0;
@@ -303,9 +286,7 @@ a.btn-info:even {
   margin-top: 1em;
 }
 
-#pdp-modal {
-  color: black;
-}
+
 
 .modal-body {
   min-height: 8em;

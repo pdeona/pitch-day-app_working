@@ -21,7 +21,7 @@ $(".project-box")
   $("<div id='clock'></div>")
   )
 .append(
-  $("<span>" + collaborators.length + " collaborators on this project. </span>")
+  $("<span>" + collaborators.length + " <%= 'collaborator'.pluralize(@project.collaborators.length) %> on this project. </span>")
   )
 .append(
   $("<%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %>")
@@ -112,8 +112,8 @@ $(".trello-box")
 .append(
   $('<div id="board-inpr-info-box"><h3>Cards In Progress</h3></div>')
     .append(() => {
-      var html = ""
-      html += '<%= (card_spans :inpr).html_safe %>'
+      var html = ''
+      html += '<%= (card_spans cards, :inpr).html_safe %>'
       if (html !== '') {
         return (html)
       } else {
@@ -124,8 +124,8 @@ $(".trello-box")
   .append(
   $('<div id="board-blocked-info-box"><h3>Blocked Cards</h3></div>')
     .append(() => {
-      var html = ""
-      html += '<%= (card_spans :blocked).html_safe %>'
+      var html = ''
+      html += '<%= (card_spans cards, :blocked).html_safe %>'
       if (html !== '') {
         return (html)
       } else {

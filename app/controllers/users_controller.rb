@@ -1,20 +1,5 @@
 class UsersController < ApplicationController
 
-  before_action :current_user, only: [:show, :destroy]
-
-  def show
-  end
-
-  def new
-    @user = User.new
-  end
-
-  def create
-  end
-
-  def destroy
-  end
-
   def step_two
     redirect_to '/auth/trello'
   end
@@ -33,28 +18,12 @@ class UsersController < ApplicationController
     redirect_to root_path, notice: 'Trello connected!'
   end
 
-  def graph
-    @repo_name = @current_user.projects.last.repo.name
-    @client = Octokit::Client.new(access_token: @current_user.github_oauth)
-    languages = @client.languages("#{@current_user.github_id}/#{@repo_name}")
-    language_obj = (languages.to_hash)
-    langs = []
-    language_obj.each do |lang, count|
-      langs.push :language => lang, :count => count
-    end
-    @langs = langs.to_json
-    respond_to do |f|
-      f.js { render partial: 'layouts/graph', langs: @langs }
-    end
-  end
-
   def search
     term = params[:term]
     respond_to do |format|
       format.json { @users = User.search(term) }
     end
   end
-
 
   private
 

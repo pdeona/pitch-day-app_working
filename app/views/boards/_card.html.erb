@@ -1,19 +1,20 @@
-<% if collaborator.nil? %>
+<% if (collaborator.nil?) %>
   <span class='card-warn'>
     <%= card_name %> has been unassigned for
         <%= time_ago_in_words(last_active) %>!
   </span>
 <% else %>
-  <% if last_active > (Time.new - 24.hours) %>
-    <%= "<span class='card-summary'>".html_safe %>
-  <% elsif (last_active < (Time.new - 24.hours) &&
-       last_active > (Time.new - 48.hours)) %>
-    <%= "<span class='card-1d-old'>".html_safe %>
-  <% else %>
-    <%= "<span class='card-warn'>".html_safe %>
+  <% unless last_active.nil? %>
+    <% if last_active > (Time.new - 24.hours) %>
+      <%= "<span class='card-summary'>".html_safe %>
+    <% elsif (last_active < (Time.new - 24.hours) &&
+         last_active > (Time.new - 48.hours)) %>
+      <%= "<span class='card-1d-old'>".html_safe %>
+    <% else %>
+      <%= "<span class='card-warn'>".html_safe %>
+    <% end %>
+      <%= collaborator %> has been working on <%= card_name %> for
+        <%= time_ago_in_words(last_active) %>
+    </span>
   <% end %>
-    <%= collaborator %> has been working on <%= card_name %> for
-      <%= time_ago_in_words(last_active) %>
-  </span>
-
 <% end %>

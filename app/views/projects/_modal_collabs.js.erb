@@ -1,4 +1,4 @@
-$('.modal-title').text('New Project Form');
+$('.modal-title').text('Add Collaborators');
 
 $('.modal-body').empty().
   append(() => {
@@ -17,15 +17,15 @@ $('.modal-footer').empty().
 
 
 
-$('.modal-footer .btn-info').click(() => {
+$('.modal-footer .btn-info').click((evt) => {
   $.ajax({
     type: 'POST',
-    url: '/add_collabs/<%= @project.id %>.js',
+    url: 'http://localhost:3000/add_collabs/<%= @project.id %>.js',
     beforeSend: ((xhr) => {
       xhr.setRequestHeader('X-CSRF-Token',
         $('meta[name="csrf-token"]').attr('content')
         )}),
-    data: 'data=' + $('#_add_collabs_<%= @project.id %>_collaborators')[0].value,
+    data: 'data=' + $('#users-search-txt')[0].value,
     success: (() => {
       $('.close').click();
     })

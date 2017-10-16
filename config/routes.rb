@@ -19,11 +19,11 @@ Rails.application.routes.draw do
 
   get 'auth/trello', as: 'trello_login'
 
-  get '/user/step2' => 'users#step_two', as: 'users_step_two'
+  get 'user/step2' => 'users#step_two', as: 'users_step_two'
 
-  get '/add_collabs/:id' => 'projects#new_collaborators', as: 'add_collabs'
+  get 'add_collabs/:id' => 'projects#new_collaborators', as: 'add_collabs'
 
-  post '/add_collabs/:id' => 'projects#add_collaborators'
+  post 'add_collabs/:id' => 'projects#add_collaborators'
 
   get 'user/search' => 'users#search'
 

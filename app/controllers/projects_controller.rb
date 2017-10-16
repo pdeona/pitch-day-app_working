@@ -20,16 +20,21 @@ class ProjectsController < ApplicationController
         @langs = @project.repo.langs
       end
     end
-    lists = ['In Progress', 'Blocked']
-    @cards_status = {inpr: [], blocked: []}
-    lists.each do |list|
-      if list == 'In Progress'
-        @cards_status[:inpr] << @project.board.check_card_status(@current_user, list)
-      else
-        @cards_status[:blocked] << @project.board.check_card_status(@current_user, list)
+    @cards_status = JSON.parse(@project.board.card_status)
+    if (@cards_status.empty? || @project.board.updated_at < (Time.now - 1.hour))
+      lists = ['In Progress', 'Blocked']
+      @cards_status = {inpr: [], blocked: []}
+      lists.each do |list|
+        if list == 'In Progress'
+          @cards_status[:inpr] << @project.board.check_card_status(@current_user, list)
+        else
+          @cards_status[:blocked] << @project.board.check_card_status(@current_user, list)
+        end
       end
+      @project.board.card_status = (@cards_status).to_json
+      @project.board.save! unless @cards_status.nil?
     end
-    render partial: 'dashboard_show', project: @project, langs: @langs, cards: @cards_status
+    render partial: 'dashboard_show', locals: { project: @project, langs: @langs, cards: @cards_status }
   end
 
   # GET /projects/new
@@ -98,7 +103,7 @@ class ProjectsController < ApplicationController
     @users.each do |user|
       users << User.find_by(trello_id: user)
     end
-    @project.add_collaborators users
+    @project.add_collaborators @current_user, users
     respond_to do |f|
       # f.html { redirect_to user_path(@current_user), notice: 'Collaborators added!' }
       f.js { render partial: 'dashboard_show', project: @project, notice: 'Collaborators added!'}

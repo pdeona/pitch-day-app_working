@@ -107,3 +107,13 @@ input, select, button, textarea {
   align-content: center;
   text-align: center;
 }
+
+.left > a.btn-primary:hover, .left > a.btn-primary:active {
+  background-color: #222;
+  box-shadow: 0;
+  -webkit-box-shadow: 0;
+}
+
+.left > a.btn-primary, .left > a.btn-primary:visited {
+  background-color: transparent;
+}
