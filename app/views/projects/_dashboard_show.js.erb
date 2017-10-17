@@ -24,16 +24,16 @@ $(".project-box")
   $("<span>" + collaborators.length + " <%= 'collaborator'.pluralize(@project.collaborators.length) %> on this project. </span>")
   )
 .append(
-  $("<div class='project-btns'><%= j link_to 'Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info', style: 'width:40%;' %></div>")
+  $("<div class='project-btns'><%= j link_to(content_tag(:i, '', class:'fa fa-user-circle') + ' Add collaborators', add_collabs_path(@project), remote: true, class: 'btn btn-info') %></div>")
 .append(
-  $("<%= j link_to 'Delete this Project', user_projects_path(@project),method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you wish to delete this project?' } %>")
+  $("<%= j link_to(content_tag(:i, "", class:'fa fa-trash') + ' Delete this Project', user_projects_path(@project),method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you wish to delete this project?' }) %>")
   )
 );
 
 
 $('#clock').countdown(due_date)
 .on('update.countdown', (evt) => {
-  $('#clock').html(evt.strftime('%-w weeks %-d days %H:%M:%S'))
+  $('#clock').html("<i id='cd-clock' class='fa fa-clock-o fa-3'></i>" + evt.strftime('%-w weeks %-d days %-H:%-M:%S'))
   .addClass('bg-info')
 })
 .on('finish.countdown',
@@ -133,7 +133,7 @@ $(".trello-box")
       if (html !== '') {
         return (html)
       } else {
-        return ('<span class="card-warn">You haven\'t started any cards!</span>')
+        return ('<span class="card-bl-notice">Nothing Blocked right now!</span>')
       }
     })
   )

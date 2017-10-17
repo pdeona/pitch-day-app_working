@@ -87,6 +87,7 @@ input, select, button, textarea {
   font-size: 2em;
   margin-bottom: 0;
   padding-bottom: 0;
+  border: 0;
  }
 
  #subtitle {
@@ -119,4 +120,46 @@ input, select, button, textarea {
 
 .btn-danger {
   opacity: 0.75;
+}
+
+.modal-body > form {
+  display: flex;
+  flex-flow: column wrap;
+  height: 100%;
+  justify-content: center;
+}
+
+.modal-footer > .btn-wyncode {
+  width: 50%;
+  align-self: center;
+  display: block;
+}
+
+#trello-board-field {
+  justify-content: center;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: middle;
+  width: 80%;
+}
+
+#trello-board-field > span.existing-trello-board {
+  padding-top: 1em;
+  display: block;
+  width: 40%;
+  align-self: left;
+  text-align: left;
+}
+
+#trello-board-field > span.col-md-6 {
+  padding-top: 1.8em ;
+  width: 60%;
+  padding-right: 0.2em;
+}
+
+#new-project-form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  text-align: center;
 }

@@ -1,7 +1,6 @@
 class Board < ApplicationRecord
   belongs_to :project
 
-  validates :trello_id, presence: true
 
   def add_collaborators user, collaborators
     @client = Trello::Client.new(
@@ -14,6 +13,29 @@ class Board < ApplicationRecord
       trello_member = @client.find(:member, collaborator.trello_id)
       board.add_member(trello_member)
     end
+  end
+
+  def link_existing_board user, board_name
+    @client = Trello::Client.new(
+      consumer_key: Rails.application.secrets['trello_key'],
+      consumer_secret: Rails.application.secrets['trello_secret'],
+      oauth_token: user.trello_oauth,
+      oauth_secret: user.trello_member_secret)
+    member = @client.find(:member, user.trello_id)
+    board = member.boards.collect{ |board| board if board.name == board_name['trello_name'] }.compact.first
+    self.trello_id = board.id
+    self.url = board.url
+    card_status = {inpr:[], blocked:[]}
+    ['Blocked', 'In Progress'].each do |list_name|
+      if list_name == 'Blocked'
+        card_status[:blocked] << (check_card_status user, list_name)
+      else
+        card_status[:inpr] << (check_card_status user, list_name)
+      end
+    end
+    self.card_status = card_status.to_json
+    self.save
+    self
   end
 
   def check_card_status user, list_name

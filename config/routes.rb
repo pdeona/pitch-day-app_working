@@ -34,4 +34,6 @@ Rails.application.routes.draw do
   get 'projects' => 'projects#nav_index', as: 'nav_project_index'
 
   delete 'user/projects.:id' => 'projects#destroy'
+
+  get 'new_user' => 'landing#new_user', as: 'landing_new_user'
 end

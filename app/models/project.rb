@@ -7,10 +7,15 @@ class Project < ApplicationRecord
   validates :due_by, presence: true
 
   def new_project_steps user, project_params
+    trello_name = project_params.extract!(:trello_name)
     @project = Project.new(project_params)
     @project.user_id = user.id
-    if @project.save
-      create_project_board user
+    if @project.save && trello_name.nil?
+      create_new_project_board user
+    elsif @project.save
+      board = @project.board = Board.create(name: trello_name['trello_name'])
+      board.link_existing_board user, trello_name
+      board.save
     end
     @project
   end
@@ -27,7 +32,7 @@ class Project < ApplicationRecord
 
   private
 
-  def create_project_board user
+  def create_new_project_board user
     Board.new.add_to_trello user, @project
   end
 end

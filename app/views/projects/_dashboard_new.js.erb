@@ -3,7 +3,7 @@ $('.modal-title').text('New Project Form');
 
 $('.modal-body').empty().
   append(() => {
-  return '<%= (j render 'form', user: @user, project: @project).html_safe %>'
+  return '<%= (j render "form", user: @user, project: @project).html_safe %>'
 });
 
 $('.modal-footer').empty().
@@ -11,12 +11,12 @@ $('.modal-footer').empty().
     return (
       '<div class="actions">\
       <%= submit_tag "Create this project",\
-            class: "btn btn-wyncode btn-primary", id: "new-project-submit", remote: true %>\
+            class: "btn btn-wyncode", id: "new-project-submit", remote: true %>\
       </div>'
     )
 });
 
-$('.modal-footer .btn-primary').click(function() {
+$('.modal-footer .btn-wyncode').click(function() {
     $('.modal-body form').submit();
   });
 

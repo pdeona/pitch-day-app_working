@@ -121,7 +121,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-content: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   align-self: center;
   overflow-y: scroll;
   overflow-x: auto;
@@ -137,8 +137,79 @@
   -webkit-box-shadow: none;
 }
 
-.card-container > div > span {
+#new-user-box {
+  height: 93%;
+  width: 93%;
+  background-color: #eee;
+  color: black;
+  font-family: Lato;
+  align-self: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+}
+
+#landing-head-div {
+  justify-content: space-around;
+  width: 40%;
+  align-self: center;
+}
+
+#landing-head-div > i.fa-github, #landing-head-div > i.fa-trello {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  color: #84C1E2;
+  font-size: 6em;
+  margin: 0.4em;
+}
+
+i.fa-plus-circle {
+  font-size: 4em;
+  margin: 1em;
+}
+
+#new-user-box > .landing-info {
+  display: flex;
+  flex-flow: row nowrap;
+  height: auto;
+  justify-content: center;
+}
+
+#what-it-does, #whos-it-for {
+  width: 40%;
   border-radius: 0.8em;
+  margin: 1.4em;
+}
+
+#what-it-does > ul > li, #whos-it-for > ul > li {
+  margin: 0 1.5em;
+}
+
+#what-it-does > ul {
+  margin: 0 2.5em;
+}
+
+#what-it-does > ul > li {
+  margin-top: 1em;
+}
+
+#what-it-does {
+  background-color: #84C1E2;
+}
+
+#whos-it-for {
+  background-color: rgba(225, 0, 0, 0.7);
+}
+
+#new-user-box > div > span > ul > li {
+  list-style: none;
+}
+
+.card-container > div > span {
+  border-radius: 0.25em;
   display: block;
   width: 85%;
   margin: .3em .6em;
@@ -154,12 +225,23 @@
   color: white;
 }
 
+
+.card-container > div > span.card-bl-notice {
+  background-color: rgba(0, 210, 60, 0.8);
+  color: white;
+}
+
+#cd-clock {
+  margin-right: 0.5em;
+  font-size: 1em;
+}
+
 .card-container > div > span.card-1d-old {
   background-color: rgba(210, 109, 19, 0.5);
 }
 
 #clock {
-  border-radius: 0.6em;
+  border-radius: 0.25em;
   width: 45%;
   height: 2.5em;
   align-self: center;
@@ -199,8 +281,6 @@
 a.btn-info {
   width: 48%;
 }
-
-
 
 .projects-nav-gutter {
   height: auto;
@@ -271,6 +351,7 @@ a.btn-info {
   border-radius: 24px;
   margin-left: 1em;
   margin-top: 1em;
+  margin-bottom: 1em;
   max-height: 64px;
   max-width: 64px;
 }
@@ -315,6 +396,7 @@ a.btn-info {
   overflow: hidden;
   overflow-y: auto;
 }
+
 
 .users-search .results .ui-menu-item {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;

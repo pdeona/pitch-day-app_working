@@ -13,15 +13,24 @@
 
 <div id='new-project-form'>
 
-  <div id='new-project-name' class='col-md-6'>
+  <div id='new-project-name' class='col-md-5'>
     <%= form.label :name, 'Name' %>
     <%= form.text_field :name, placeholder: 'Name your project',
         class: 'form-control' %>
   </div>
 
-  <div id='new-project-dueby' class='col-md-6'>
+  <div id='new-project-dueby' class='col-md-5'>
     <%= form.label :due_by %>
     <%= form.date_field :due_by, class: 'form-control' %>
+  </div>
+
+  <div id='trello-board-field'>
+    <span class='existing-trello-board'>
+      If you already created a Trello Board for this Project, type the board's name in here:<br>
+    </span>
+    <span class='col-md-6'>
+      <%= form.text_field :trello_name, placeholder: "Enter your existing Board's name", class: 'form-control trello-name' %>
+    </span>
   </div>
 
 <% end %>

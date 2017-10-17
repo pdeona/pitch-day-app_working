@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
         board.card_status = (@cards_status).to_json
         board.save! unless @cards_status.nil?
       else
-        @cards_status = JSON.parse(board.card_status)
+        @cards_status = board.card_status ? JSON.parse(board.card_status) : {blocked: [], inpr: []}
       end
     else
       @cards_status = 'Creating your Trello Board...'
@@ -93,7 +93,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -112,15 +112,16 @@ class ProjectsController < ApplicationController
     @project.add_collaborators @current_user, users
     respond_to do |f|
       # f.html { redirect_to user_path(@current_user), notice: 'Collaborators added!' }
-      f.js { render partial: 'dashboard_show', project: @project, notice: 'Collaborators added!'}
+      f.js { render partial: 'dashboard_show', project: @project, cards: @project.board.card_status, langs: @project.repo.langs, notice: 'Collaborators added!'}
     end
   end
 
   def add_repo
     repo_name = params[add_repo_path(@project)][:repo_name]
+    @langs = @project.repo.get_languages @current_user
     @project.repo = Repo.link_existing_repo @current_user, @project, repo_name
     if @project.save
-      render partial: 'dashboard_show', project: @project, notice: 'Repo linked!'
+      render partial: 'dashboard_show', project: @project, cards: @project.board.card_status, langs: @langs, notice: 'Repo linked!'
     else
       render partial: 'add_repo'
     end
@@ -138,6 +139,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :due_by, :repo_name, :user_id)
+      params.require(:project).permit(:name, :due_by, :repo_name, :user_id, :trello_board?, :trello_name)
     end
 end
