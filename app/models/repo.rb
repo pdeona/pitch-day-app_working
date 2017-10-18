@@ -17,7 +17,7 @@ class Repo < ApplicationRecord
     @client = Octokit::Client.new(access_token: user.github_oauth)
     collaborators.each do |collaborator|
       github_user = collaborator.github_id
-      @client.put('/repos/#{user.github_id}/#{self.name}/collaborators/#{github_user}')
+      @client.put("/repos/#{user.github_id}/#{self.name}/collaborators/#{github_user}")
     end
   end
 

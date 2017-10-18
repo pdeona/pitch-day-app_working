@@ -10,7 +10,7 @@ class Project < ApplicationRecord
     trello_name = project_params.extract!(:trello_name)
     @project = Project.new(project_params)
     @project.user_id = user.id
-    if @project.save && trello_name.nil?
+    if @project.save && trello_name['trello_name'].empty?
       create_new_project_board user
     elsif @project.save
       board = @project.board = Board.create(name: trello_name['trello_name'])

@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
       redirect_to root_path, notice: "Signed in!"
     else
       user = User.create_from_github(auth.info)
+      user.github_oauth = auth.credentials.token
       session[:new_user_id] = user.id
       redirect_to users_step_two_path
     end

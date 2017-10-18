@@ -28,9 +28,9 @@ class Board < ApplicationRecord
     card_status = {inpr:[], blocked:[]}
     ['Blocked', 'In Progress'].each do |list_name|
       if list_name == 'Blocked'
-        card_status[:blocked] << (check_card_status user, list_name)
+        card_status[:blocked] << (b.check_card_status user, list_name)
       else
-        card_status[:inpr] << (check_card_status user, list_name)
+        card_status[:inpr] << (b.check_card_status user, list_name)
       end
     end
     self.card_status = card_status.to_json

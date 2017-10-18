@@ -133,6 +133,7 @@ GEM
       oauth (~> 0.4)
       omniauth (~> 1.0)
       omniauth-oauth (~> 1.0)
+    pg (0.21.0)
     public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.3)
@@ -262,6 +263,7 @@ DEPENDENCIES
   octokit (~> 4.7)
   omniauth-github (~> 1.0)
   omniauth-trello (~> 0.0.4)
+  pg
   puma (~> 3.7)
   rails (~> 5.1.4)
   resque (~> 1.27)

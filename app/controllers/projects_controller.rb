@@ -109,18 +109,19 @@ class ProjectsController < ApplicationController
     @users.each do |user|
       users << User.find_by(trello_id: user)
     end
+    @langs = @project.repo.nil? ? nil : @project.repo.langs
     @project.add_collaborators @current_user, users
     respond_to do |f|
       # f.html { redirect_to user_path(@current_user), notice: 'Collaborators added!' }
-      f.js { render partial: 'dashboard_show', project: @project, cards: @project.board.card_status, langs: @project.repo.langs, notice: 'Collaborators added!'}
+      f.js { render partial: 'dashboard_show', project: @project, cards: @project.board.card_status, langs: @langs, notice: 'Collaborators added!'}
     end
   end
 
   def add_repo
     repo_name = params[add_repo_path(@project)][:repo_name]
-    @langs = @project.repo.get_languages @current_user
     @project.repo = Repo.link_existing_repo @current_user, @project, repo_name
     if @project.save
+      @langs = @project.repo.get_languages @current_user
       render partial: 'dashboard_show', project: @project, cards: @project.board.card_status, langs: @langs, notice: 'Repo linked!'
     else
       render partial: 'add_repo'

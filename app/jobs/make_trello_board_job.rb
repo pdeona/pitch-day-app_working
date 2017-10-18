@@ -16,6 +16,8 @@ class MakeTrelloBoardJob < ApplicationJob
     new_board.create_labels board, @client
     new_board.create_lists board, @client
     new_board.create_cards board, @client
+    new_board.check_card_status(user, 'In Progress')
+    new_board.check_card_status(user, 'Blocked')
     if new_board.save!
       project.board = new_board
       project.save!
