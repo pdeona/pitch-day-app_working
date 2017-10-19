@@ -21,7 +21,7 @@ class ProjectsController < ApplicationController
         @langs = @project.repo.langs
       end
     end
-    if (!(board.nil?) || board.card_status == ("{\"blocked\":[{\"unassigned\":[],\"working\":[]}],\"inpr\":[{\"unassigned\":[],\"working\":[]}]}") || board.card_status.nil? )
+    if (!(board.nil?) || board.card_status == ("{\"blocked\":[{\"unassigned\":[],\"working\":[]}],\"inpr\":[{\"unassigned\":[],\"working\":[]}]}") )
       if (board.updated_at < Time.new - 1.hour)
         lists = ['Blocked', 'In Progress']
         @cards_status = {blocked: [], inpr: []}
@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
           end
         end
         board.card_status = (@cards_status).to_json
-        board.save! unless @cards_status.nil?
+        board.save! unless board.card_status.nil?
       else
         @cards_status = board.card_status ? JSON.parse(board.card_status) : {blocked: [], inpr: []}
       end
