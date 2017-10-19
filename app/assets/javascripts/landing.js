@@ -1,18 +1,14 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-// You can use CoffeeScript in this file: http://coffeescript.org/
-
 // $(document).on('turbolinks:load', () => {
 
-$(document).on('turbolinks:load', () => {
-  $('#projects-btn').on('click', (evt) => {
+$(document).on('turbolinks:load', function() {
+  $('#projects-btn').on('click', function(evt) {
     evt.preventDefault();
     $('.btn-secondary').toggle('slideDown');
   });
 
-  $('.btn-secondary').on('click', (evt)=>{
+  $('.btn-secondary').on('click', function(evt) {
     $(evt.target).addClass('active');
-    $(evt.target).siblings().on('click', () => {
+    $(evt.target).siblings().on('click', function() {
       $(evt.target).removeClass('active');
     })
   })
